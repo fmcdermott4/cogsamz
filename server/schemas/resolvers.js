@@ -2,13 +2,25 @@ const {
   AuthenticationError,
   UserInputError,
 } = require("apollo-server-express");
-const { User } = require("../models");
+const { AMM2, COGS, User } = require("../models");
 const { signToken } = require("../util/auth");
 const { dateScalar } = require("./customScalars");
 
 const resolvers = {
   Date: dateScalar,
   Query: {
+    AMM2: async () =>{
+        return await AMM2.find({})
+    },        
+    BillCodes: async () =>{
+        return await COGS.find({});
+    }, 
+    BillCode: async (parent, {BillCode})=>{
+        return await COGS.findOne({BillCode:BillCode})
+    },
+    LPN: async (parent, {LPN}) =>{
+        return await AMM2.findOne({LPN:LPN});
+    },
     me: async (parent, args, ctx) => {
       // if ctx.user is undefined, then no token or an invalid token was
       // provided by the client.
