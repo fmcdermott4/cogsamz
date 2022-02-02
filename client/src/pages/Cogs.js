@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import { useAuth } from "../util/auth";
 import {useQuery} from '@apollo/client';
-import {LPN} from '../util/queries';
+import {LPN, BILL_CODE} from '../util/queries';
 
+const budgetPercent = .36;
 let goodLpn=false;
+
 
 const Cogs = () => {
     const { isLoggedIn, user } = useAuth();
@@ -36,7 +38,7 @@ const Cogs = () => {
                 <input type="text" name="lpn" onChange={lpnChange}/>                
             </form>
 
-            {goodLpn?<LPNrender value={lpn}/>:<div>Enter correct valued LPN</div>}
+            {goodLpn?<LPNrender value={lpn}/>:<div></div>}
         </div>
     );
 };
@@ -54,16 +56,75 @@ const LPNrender = (lpnValue) =>{
     if(loading){
         return(<div>Loading...</div>)
     }
+    if(data.LPN === null){
+        return<div>No data on LPN</div>
+    }
     return(
-        <ServicesCheckboxes data={data}/>        
+    <ServicesCheckboxes data={data}/>        
     )
 }
 
 const ServicesCheckboxes = (lpnData) =>{
-    console.log(lpnData.data)
+    // console.log(lpnData.data.LPN.Price)
+
+    const budget = parseInt(lpnData.data.LPN.Price) * budgetPercent;
+    
+    const [passFail, changePassFail] = useState({
+        "newItem" : false,
+        "rebox": false,
+        "manual": false
+    })
+
+    const billCode = lpnData.data.LPN.Subcategory.substring(0,5).trim();    
+
+    const{data,loading,error} = useQuery(BILL_CODE,{
+        variables: {"billCode": billCode}
+    })
+
+    if(error){
+        return<div/>
+    }
+    if(loading){
+        return<div>Loading...</div>
+    }
+    if(isNaN(budget)){
+        return<div>Item cost not a number</div>
+    }
+    if(data.BillCode === null){
+        return<div>No billing data for bill code</div>
+    }
+    
+    const functionTestCost = parseInt(data.BillCode.FunctionTest);
+    const cleaningCost = parseInt(data.BillCode.Cleaning);
+    const reboxCost = parseInt(data.BillCode.Rebox)
+    const manualCost = 2;
+
+    let cogsCost = functionTestCost;
+    
+    const handleCheck = (e)=>{
+        console.log(e)
+    }
 
     return(
-        <div>Hello</div>
+        <div>
+            <br/>
+            ${budget} avaiable for COGS
+            <hr/>
+            <form>
+                <input type="checkbox" checked disabled/><label>Function test ${functionTestCost}</label>
+                <br/>
+                
+                <input type="checkbox" name="newItem" onChange={handleCheck}/><label>New Item?</label>
+                <br/>
+                
+                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Needs rebox? ${reboxCost}</label>
+                <br/>
+                
+                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Needs manual? ${manualCost}</label>
+                <br/>
+            </form>
+            
+        </div>
     )
 }
 
