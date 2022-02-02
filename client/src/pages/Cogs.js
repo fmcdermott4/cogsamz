@@ -15,7 +15,7 @@ const Cogs = () => {
 
     const lpnChange = (e) =>{
         e.preventDefault();
-        if(e.target.value.substring(0,3) === "LPN" && e.target.value.length <= 13){
+        if(e.target.value.substring(0,3) === "LPN" && e.target.value.length >= 13){
             goodLpn = true;
             changeLpn({"lpn": e.target.value})
         } else{
