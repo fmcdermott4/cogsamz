@@ -129,7 +129,7 @@ const ServicesCheckboxes = (lpnData) =>{
                 <br/>
             </form>
             <hr/>
-            Avaiable for COGS: ${budget.toFixed()}
+            Avaiable for COGS: ${budget.toFixed(2)}
             <br/>
             COGS cost: ${cogsCost}
             <br/>
