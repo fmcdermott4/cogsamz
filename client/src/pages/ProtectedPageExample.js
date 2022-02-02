@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useAuth } from "../util/auth";
 import { ME } from "../util/queries";
+const Quote = require('inspirational-quotes')
 
 const renderDate = (date) =>
   `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
@@ -24,10 +25,10 @@ export default function ProtectedPageExample() {
       <p>Your id is {user._id}</p>
       <p>Your email is {user.email}</p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo cumque
-        explicabo ipsum, facilis repellendus omnis amet in accusantium quisquam
-        nam qui consectetur sunt distinctio nemo molestiae ratione. Iure,
-        aliquam debitis.
+          {Quote.getQuote().text}
+      </p>
+      <p>
+        -{Quote.getQuote().author}
       </p>
     </div>
   );

@@ -10,3 +10,26 @@ export const ME = gql`
     }
   }
 `;
+export const LPN = gql`
+  query LPN($lpn: String) {
+    LPN(LPN: $lpn) {
+      _id
+      LPN
+      Subcategory
+      Price
+    }
+  }
+`;
+export const BILL_CODE = gql`
+  query BillCode($billCode: String) {
+    BillCode(BillCode: $billCode) {
+      _id
+      AmazonCategory
+      BillCode
+      FunctionTest
+      Cleaning
+      Rebox
+      Parts
+    }
+  }
+`;

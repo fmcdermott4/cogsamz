@@ -8,6 +8,7 @@ import ProtectedPageExample from "./pages/ProtectedPageExample";
 import SignUp from "./pages/SignUp";
 import { client } from "./util/apolloClient";
 import { AuthProvider } from "./util/auth";
+import Cogs from "./pages/Cogs";
 
 function App() {
   return (
@@ -27,8 +28,11 @@ function App() {
             </Route>
             {/* Use PrivateRoute for pages that should only be accessible to a
             user that has logged in.*/}
-            <PrivateRoute path="/protected">
+            <PrivateRoute path="/user">
               <ProtectedPageExample />
+            </PrivateRoute>
+            <PrivateRoute path="/cogs">
+              <Cogs />
             </PrivateRoute>
           </Switch>
         </AuthProvider>
