@@ -70,7 +70,8 @@ const ServicesCheckboxes = (lpnData) =>{
     const budget = parseInt(lpnData.data.LPN.Price) * budgetPercent;
     
     const [passFail, changePassFail] = useState({
-        "newItem" : false,
+        "functionTest": true,
+        "cleaning" : false,
         "rebox": false,
         "manual": false
     })
@@ -99,22 +100,26 @@ const ServicesCheckboxes = (lpnData) =>{
     const reboxCost = parseInt(data.BillCode.Rebox)
     const manualCost = 2;
 
-    let cogsCost = functionTestCost;
+    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual;
     
     const handleCheck = (e)=>{
-        console.log(e)
+        const checkBox = e.target.name;
+        const value = e.target.checked;
+        changePassFail({
+            ...passFail,
+            [checkBox] : value
+        })
     }
 
+    let cogsPassFail = cogsCost <= budget;
     return(
         <div>
-            <br/>
-            ${budget} avaiable for COGS
             <hr/>
             <form>
                 <input type="checkbox" checked disabled/><label>Function test ${functionTestCost}</label>
                 <br/>
                 
-                <input type="checkbox" name="newItem" onChange={handleCheck}/><label>New Item?</label>
+                <input type="checkbox" name="cleaning" onChange={handleCheck}/><label>Cleaning? ${cleaningCost}</label>
                 <br/>
                 
                 <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Needs rebox? ${reboxCost}</label>
@@ -123,7 +128,12 @@ const ServicesCheckboxes = (lpnData) =>{
                 <input type="checkbox" name="manual" onChange={handleCheck}/><label>Needs manual? ${manualCost}</label>
                 <br/>
             </form>
-            
+            <hr/>
+            Avaiable for COGS: ${budget}
+            <br/>
+            COGS cost: ${cogsCost}
+            <br/>
+            {cogsPassFail?<h3>Pass</h3>:<h3>Fail</h3>}
         </div>
     )
 }
