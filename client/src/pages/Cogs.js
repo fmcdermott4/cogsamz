@@ -74,7 +74,8 @@ const ServicesCheckboxes = (lpnData) =>{
         "functionTest": true,
         "cleaning" : false,
         "rebox": false,
-        "manual": false
+        "manual": false,
+        "parts": false
     })
 
     const billCode = lpnData.data.LPN.Subcategory.substring(0,5).trim();    
@@ -98,10 +99,11 @@ const ServicesCheckboxes = (lpnData) =>{
     
     const functionTestCost = parseInt(data.BillCode.FunctionTest);
     const cleaningCost = parseInt(data.BillCode.Cleaning);
-    const reboxCost = parseInt(data.BillCode.Rebox)
+    const reboxCost = parseInt(data.BillCode.Rebox);
+    const partsCost = parseInt(data.BillCode.Parts);
     const manualCost = 2;
 
-    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual;
+    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual+partsCost*passFail.parts;
     
     const handleCheck = (e)=>{
         const checkBox = e.target.name;
@@ -117,6 +119,7 @@ const ServicesCheckboxes = (lpnData) =>{
         <div>
             <hr/>
             <form>
+                {console.log(budget + " " + cogsCost)}
                 <input type="checkbox" checked disabled/><label>Function test</label>
                 <br/>
                 
@@ -127,6 +130,9 @@ const ServicesCheckboxes = (lpnData) =>{
                 <br/>
                 
                 <input type="checkbox" name="manual" onChange={handleCheck}/><label>Needs manual?</label>
+                <br/>
+
+                <input type="checkbox" name="parts" onChange={handleCheck}/><label>Needs parts?</label>
                 <br/>
             </form>
             <hr/>
