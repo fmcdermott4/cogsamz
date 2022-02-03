@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import { client } from "./util/apolloClient";
 import { AuthProvider } from "./util/auth";
 import Cogs from "./pages/Cogs";
+import CogsAdmin from "./pages/CogsAdmin";
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/cogs">
               <Cogs />
+            </PrivateRoute>
+            <PrivateRoute path="/cogsadmin">
+              <CogsAdmin />
             </PrivateRoute>
           </Switch>
         </AuthProvider>

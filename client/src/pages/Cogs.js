@@ -123,16 +123,16 @@ const ServicesCheckboxes = (lpnData) =>{
                 <input type="checkbox" checked disabled/><label>Function test</label>
                 <br/>
                 
-                <input type="checkbox" name="cleaning" onChange={handleCheck}/><label>Cleaning?</label>
+                <input type="checkbox" name="cleaning" onChange={handleCheck}/><label>Cleaning</label>
                 <br/>
                 
-                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Needs rebox?</label>
+                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Rebox?</label>
                 <br/>
                 
-                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Needs manual?</label>
+                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Manual?</label>
                 <br/>
 
-                <input type="checkbox" name="parts" onChange={handleCheck}/><label>Needs parts?</label>
+                <input type="checkbox" name="parts" onChange={handleCheck}/><label>Parts?</label>
                 <br/>
             </form>
             <hr/>

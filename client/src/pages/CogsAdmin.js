@@ -7,7 +7,7 @@ const budgetPercent = .36;
 let goodLpn=false;
 
 
-const Cogs = () => {
+const CogsAdmin = () => {
     const { isLoggedIn, user } = useAuth();
     const [lpn, changeLpn] = useState({"lpn":""});
 
@@ -74,7 +74,8 @@ const ServicesCheckboxes = (lpnData) =>{
         "functionTest": true,
         "cleaning" : false,
         "rebox": false,
-        "manual": false
+        "manual": false,
+        "parts": false
     })
 
     const billCode = lpnData.data.LPN.Subcategory.substring(0,5).trim();    
@@ -98,10 +99,11 @@ const ServicesCheckboxes = (lpnData) =>{
     
     const functionTestCost = parseInt(data.BillCode.FunctionTest);
     const cleaningCost = parseInt(data.BillCode.Cleaning);
-    const reboxCost = parseInt(data.BillCode.Rebox)
+    const reboxCost = parseInt(data.BillCode.Rebox);
+    const partsCost = parseInt(data.BillCode.Parts);
     const manualCost = 2;
 
-    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual;
+    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual+partsCost*passFail.parts;
     
     const handleCheck = (e)=>{
         const checkBox = e.target.name;
@@ -117,16 +119,19 @@ const ServicesCheckboxes = (lpnData) =>{
         <div>
             <hr/>
             <form>
-                <input type="checkbox" checked disabled/><label>Function test ${functionTestCost}</label>
+                <input type="checkbox" checked disabled/><label>Function test? ${functionTestCost}</label>
                 <br/>
                 
                 <input type="checkbox" name="cleaning" onChange={handleCheck}/><label>Cleaning? ${cleaningCost}</label>
                 <br/>
                 
-                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Needs rebox? ${reboxCost}</label>
+                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Rebox? ${reboxCost}</label>
                 <br/>
                 
-                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Needs manual? ${manualCost}</label>
+                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Manual? ${manualCost}</label>
+                <br/>
+
+                <input type="checkbox" name="parts" onChange={handleCheck}/><label>Parts? ${partsCost}</label>
                 <br/>
             </form>
             <hr/>
@@ -139,4 +144,4 @@ const ServicesCheckboxes = (lpnData) =>{
     )
 }
 
-export default Cogs;
+export default CogsAdmin;

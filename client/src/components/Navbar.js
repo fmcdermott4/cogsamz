@@ -11,6 +11,9 @@ export default function Navbar() {
       </NavLink>
       {isLoggedIn ? (
         <>
+          <NavLink to="/cogs" className="navbar-link">
+           Cogs Tool
+          </NavLink>
           <NavLink to="/user" className="navbar-link">
             User
           </NavLink>
