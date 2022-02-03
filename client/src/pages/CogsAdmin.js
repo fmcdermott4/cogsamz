@@ -117,19 +117,23 @@ const ServicesCheckboxes = (lpnData) =>{
         <div>
             <hr/>
             <form>
-                <input type="checkbox" checked disabled/><label>Function test</label>
+                <input type="checkbox" checked disabled/><label>Function test ${functionTestCost}</label>
                 <br/>
                 
-                <input type="checkbox" name="cleaning" onChange={handleCheck}/><label>Cleaning?</label>
+                <input type="checkbox" name="cleaning" onChange={handleCheck}/><label>Cleaning? ${cleaningCost}</label>
                 <br/>
                 
-                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Needs rebox?</label>
+                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Needs rebox? ${reboxCost}</label>
                 <br/>
                 
-                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Needs manual?</label>
+                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Needs manual? ${manualCost}</label>
                 <br/>
             </form>
             <hr/>
+            Avaiable for COGS: ${budget.toFixed(2)}
+            <br/>
+            COGS cost: ${cogsCost}
+            <br/>
             {cogsPassFail?<h3>Pass</h3>:<h3>Fail</h3>}
         </div>
     )
