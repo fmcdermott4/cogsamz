@@ -8,7 +8,7 @@ export default function Home() {
       <h1>Welcome {isLoggedIn ? user.username : "Guest"}!</h1>
       <hr />
       <p>
-        You're logged in! Click <a href="./cogs">here</a> to use the COGS tool: 
+      Click <a href="./cogs">here</a> to use the COGS tool: 
       </p>
     </div>
   );
