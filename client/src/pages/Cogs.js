@@ -137,6 +137,7 @@ const ServicesCheckboxes = (lpnData) =>{
             </form>
             <hr/>
             {cogsPassFail?<h3>Pass</h3>:<h3>Fail</h3>}
+            {console.log(lpnData.data.LPN.Price)}
         </div>
     )
 }

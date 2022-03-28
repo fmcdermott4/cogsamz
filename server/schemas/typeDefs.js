@@ -26,12 +26,14 @@ const typeDefs = gql`
     token: String!
     user: User!
   }
+
   type AMM2 {
     _id: ID
     LPN: String
     Subcategory: String
     Price: String
   }
+
   type COGS {
     _id: ID
     AmazonCategory: String
@@ -41,6 +43,24 @@ const typeDefs = gql`
     Rebox: String
     Parts: String
   }
+
+  type SubmittedLpn {
+    _id: id
+    LPN: String!
+    Subcategory: String!
+    SubmittedDate: Date!
+    Price: String!
+    FunctionTestChecked: Boolean
+    CleaningChecked: Boolean
+    ReboxChecked: Boolean
+    KittingChecked: Boolean
+    PartsChecked: Boolean
+    FunctionTest: String
+    Cleaning: String
+    Rebox: String
+    Parts: String
+  }
+
   type User {
     _id: ID!
     username: String!

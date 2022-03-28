@@ -31,6 +31,9 @@ const resolvers = {
     },
   },
   Mutation: {
+    createSubmittedLpn: async (parent,args)=>{
+      
+    },
     createUser: async (parent, args) => {
       try {
         const user = await User.create({ ...args });
