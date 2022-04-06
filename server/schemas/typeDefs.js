@@ -15,6 +15,7 @@ const typeDefs = gql`
     BillCode(BillCode:String): COGS
     "Find the logged in user."
     me: User
+    submittedLpn(LPN:String!):SubmittedLpn
     submittedLPNs: [SubmittedLpn]
   }
 

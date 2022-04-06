@@ -27,3 +27,12 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const UPSERT_SUBMITTED_LPN = gql`
+  mutation upsertSubmittedLpn($LPN: String!, $price: String!, $functionTest: String!, $cleaning: String!, $rebox: String!, $parts: String!, $functionTestChecked: Boolean, $cleaningChecked: Boolean, $reboxChecked: Boolean, $kittingChecked: Boolean, $partsChecked: Boolean, $kitting: String) {
+    upsertSubmittedLpn(LPN: $LPN, Price: $price, FunctionTest: $functionTest, Cleaning: $cleaning, Rebox: $rebox, Parts: $parts, FunctionTestChecked: $functionTestChecked, CleaningChecked: $cleaningChecked, ReboxChecked: $reboxChecked, KittingChecked: $kittingChecked, PartsChecked: $partsChecked, Kitting: $kitting) {
+      _id
+      LPN
+    }
+  }
+`;

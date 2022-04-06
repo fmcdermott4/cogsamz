@@ -29,6 +29,9 @@ const resolvers = {
       }
       return User.findOne({ email: ctx.user.email });
     },
+    submittedLpn: async (parent, {LPN})=>{
+      return await SubmittedLpn.findOne({LPN:LPN})
+    },
     submittedLPNs: async ()=>{
       return await SubmittedLpn.find({});
     }
