@@ -39,8 +39,10 @@ const resolvers = {
   Mutation: {
     upsertSubmittedLpn: async (parent,args)=>{
       const {LPN} = await args;
-      return await SubmittedLpn.findOneAndUpdate({LPN:LPN}, {...args}, {new:true, upsert:true, setDefaultsOnInsert: true}        
-        )            
+      const updatedLpn =  await SubmittedLpn.findOneAndUpdate({LPN:LPN}, {...args}, {new:true, upsert:true, setDefaultsOnInsert: true});            
+      updatedLpn.SubmittedDate = Date.now();
+      await updatedLpn.save();
+      return updatedLpn;
     },
     createUser: async (parent, args) => {
       try {
