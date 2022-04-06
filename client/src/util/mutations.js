@@ -29,8 +29,8 @@ export const LOGIN = gql`
 `;
 
 export const UPSERT_SUBMITTED_LPN = gql`
-  mutation upsertSubmittedLpn($LPN: String!, $price: String!, $functionTest: String!, $cleaning: String!, $rebox: String!, $parts: String!, $functionTestChecked: Boolean, $cleaningChecked: Boolean, $reboxChecked: Boolean, $kittingChecked: Boolean, $partsChecked: Boolean, $kitting: String) {
-    upsertSubmittedLpn(LPN: $LPN, Price: $price, FunctionTest: $functionTest, Cleaning: $cleaning, Rebox: $rebox, Parts: $parts, FunctionTestChecked: $functionTestChecked, CleaningChecked: $cleaningChecked, ReboxChecked: $reboxChecked, KittingChecked: $kittingChecked, PartsChecked: $partsChecked, Kitting: $kitting) {
+  mutation upsertSubmittedLpn($lpn: String!, $price: String!, $functionTestChecked: Boolean, $cleaningChecked: Boolean, $reboxChecked: Boolean, $kittingChecked: Boolean, $partsChecked: Boolean, $functionTest: String!, $rebox: String!, $cleaning: String!, $parts: String!, $kitting: String) {
+    upsertSubmittedLpn(LPN: $lpn, Price: $price, FunctionTestChecked: $functionTestChecked, CleaningChecked: $cleaningChecked, ReboxChecked: $reboxChecked, KittingChecked: $kittingChecked, PartsChecked: $partsChecked, FunctionTest: $functionTest, Rebox: $rebox, Cleaning: $cleaning, Parts: $parts, Kitting: $kitting) {
       _id
       LPN
     }

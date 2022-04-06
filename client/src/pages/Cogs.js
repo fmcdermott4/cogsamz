@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import { useAuth } from "../util/auth";
-import {useQuery} from '@apollo/client';
+import {useQuery, useMutation} from '@apollo/client';
 import {LPN, BILL_CODE} from '../util/queries';
+import {UPSERT_SUBMITTED_LPN} from '../util/mutations';
 
 const budgetPercent = .36;
 let goodLpn=false;
@@ -84,6 +85,8 @@ const ServicesCheckboxes = (lpnData) =>{
         variables: {"billCode": billCode}
     })
 
+    const [updateSubmittedLpn] = useMutation(UPSERT_SUBMITTED_LPN);
+
     if(error){
         return<div/>
     }
@@ -111,8 +114,23 @@ const ServicesCheckboxes = (lpnData) =>{
         changePassFail({
             ...passFail,
             [checkBox] : value
-        })
+        });
+        
     }
+
+    updateSubmittedLpn({variables:{
+        "lpn": lpnData.data.LPN.LPN,
+        "price": lpnData.data.LPN.Price,
+        "functionTestChecked": passFail.functionTest,
+        "cleaningChecked": passFail.cleaning,
+        "reboxChecked": passFail.rebox,
+        "kittingChecked": passFail.manual,
+        "partsChecked": passFail.parts,
+        "functionTest": data.BillCode.FunctionTest,
+        "rebox": data.BillCode.Rebox,
+        "cleaning": data.BillCode.Cleaning,
+        "parts": data.BillCode.Parts
+}});
 
     let cogsPassFail = cogsCost <= budget;
     return(
