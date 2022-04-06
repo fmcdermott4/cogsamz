@@ -5,16 +5,12 @@ const submittedLpnSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        unique:true
-    },
-    Subcategory:{
-        type: String,
-        trim: true,
-        required: true
-    },
+        unique: true
+    },    
     SubmittedDate:{
         type:Date,
-        required: true
+        required: true,
+        default: Date.now
     },
     Price:{
         type: String,
@@ -43,19 +39,28 @@ const submittedLpnSchema = new Schema({
     },
     FunctionTest:{
         type: String,
+        required: true,
         trim: true
     },
     Cleaning:{
         type: String,
+        required: true,
         trim: true
     },
     Rebox:{
         type: String,
+        required: true,
         trim: true
     },
     Parts:{
         type: String,
+        required: true,
         trim: true
+    },
+    Kitting:{
+        type: String,
+        trim: true,
+        default: "2"
     }
 });
 

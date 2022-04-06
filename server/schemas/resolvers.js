@@ -2,7 +2,7 @@ const {
   AuthenticationError,
   UserInputError,
 } = require("apollo-server-express");
-const { AMM2, COGS, User } = require("../models");
+const { AMM2, COGS, User, SubmittedLpn } = require("../models");
 const { signToken } = require("../util/auth");
 const { dateScalar } = require("./customScalars");
 
@@ -29,10 +29,15 @@ const resolvers = {
       }
       return User.findOne({ email: ctx.user.email });
     },
+    submittedLPNs: async ()=>{
+      return await SubmittedLpn.find({});
+    }
   },
   Mutation: {
-    createSubmittedLpn: async (parent,args)=>{
-      
+    upsertSubmittedLpn: async (parent,args)=>{
+      const {LPN} = await args;
+      return await SubmittedLpn.findOneAndUpdate({LPN:LPN}, {...args}, {new:true, upsert:true, setDefaultsOnInsert: true}        
+        )            
     },
     createUser: async (parent, args) => {
       try {
@@ -62,7 +67,7 @@ const resolvers = {
       await user.save();
       return { token, user };
     },
-  },
+  }
 };
 
 module.exports = resolvers;

@@ -14,6 +14,12 @@ const amm2Schema = new Schema({
     Price:{
         type: String,
         trim: true
+    },
+    DateCreated:{
+        type: Date
+    },
+    Active:{
+        type: Boolean
     }
 });
 

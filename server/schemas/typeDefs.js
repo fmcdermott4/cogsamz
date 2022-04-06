@@ -15,9 +15,11 @@ const typeDefs = gql`
     BillCode(BillCode:String): COGS
     "Find the logged in user."
     me: User
+    submittedLPNs: [SubmittedLpn]
   }
 
   type Mutation {
+    upsertSubmittedLpn(LPN:String!, Price:String!, FunctionTestChecked:Boolean, CleaningChecked:Boolean, ReboxChecked: Boolean, KittingChecked: Boolean, PartsChecked: Boolean, FunctionTest: String!, Cleaning: String!, Rebox: String!, Parts: String!, Kitting: String): SubmittedLpn
     createUser(email: String!, password: String!, username: String!): Auth
     login(email: String!, password: String!): Auth
   }
@@ -32,6 +34,8 @@ const typeDefs = gql`
     LPN: String
     Subcategory: String
     Price: String
+    DateCreated: Date
+    Active: Boolean
   }
 
   type COGS {
@@ -45,9 +49,8 @@ const typeDefs = gql`
   }
 
   type SubmittedLpn {
-    _id: id
+    _id: ID
     LPN: String!
-    Subcategory: String!
     SubmittedDate: Date!
     Price: String!
     FunctionTestChecked: Boolean
@@ -55,10 +58,11 @@ const typeDefs = gql`
     ReboxChecked: Boolean
     KittingChecked: Boolean
     PartsChecked: Boolean
-    FunctionTest: String
-    Cleaning: String
-    Rebox: String
-    Parts: String
+    FunctionTest: String!
+    Cleaning: String!
+    Rebox: String!
+    Parts: String!
+    Kitting: String!
   }
 
   type User {
