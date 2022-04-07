@@ -2,9 +2,62 @@ import React, {useState} from 'react';
 import {useQuery} from '@apollo/client';
 import {SUBMITTED_LPNS} from '../util/queries';
 import Table from 'react-bootstrap/Table';
-import Form from 'react-bootstrap/Form';
 import { CSVLink } from "react-csv";
 import DatePicker from "react-datepicker";
+import {Row, Col, Container} from 'react-bootstrap';
+
+const ServicesSelectedTable = ()=>{
+    const currentDate = new Date();
+
+    const [submittedLpnParameters, updateSubmittedLpnParameters] = useState({minDate: new Date(currentDate.getFullYear(), currentDate.getMonth()-1), maxDate: currentDate, subcategory:""})
+    
+
+
+        return(
+            <div>
+                <Row>
+                        <Col>
+                            <label>Min Date</label>
+                        </Col>
+                        <Col>
+                            <DatePicker showMonthDropdown showYearDropdown withPortal={true} popperModifiers={{
+                    flip: {
+                        behavior: ['bottom'] // don't allow it to flip to be above
+                    },
+                    preventOverflow: {
+                        enabled: false // tell it not to try to stay within the view (this prevents the popper from covering the element you clicked)
+                    },
+                    hide: {
+                        enabled: false // turn off since needs preventOverflow to be enabled
+                    }
+                }}className="form-control" selected={submittedLpnParameters.minDate} onChange={(date)=>updateSubmittedLpnParameters({...submittedLpnParameters, minDate:date})} />
+                            
+                        </Col>
+
+
+                    
+                </Row>
+                <Row>
+                    <Col>
+                        <label>Max Date</label>
+                    </Col>
+                    <Col>
+                        <DatePicker className="form-control" selected={submittedLpnParameters.maxDate} onChange={(date) => updateSubmittedLpnParameters({...submittedLpnParameters, maxDate:date})} />
+                    </Col>
+                </Row>
+                
+                
+                <label>Subcategory</label><br/>
+                <input type="text" name="subcategory" value={submittedLpnParameters.subcategory}onChange={(e)=>updateSubmittedLpnParameters({...submittedLpnParameters, subcategory:e.target.value})}/>
+                <SelectedTable submittedLpnParameters={submittedLpnParameters}/>
+            </div>
+        )            
+    
+}
+
+
+
+
 
 
 const Header = ()=>{
@@ -45,25 +98,11 @@ const LpnRow = (lpn, index)=>{
 
 
 
-const ServicesSelectedTable = ()=>{
-    const currentDate = new Date();
-    const [submittedLpnParameters, updateSubmittedLpnParameters] = useState({minDate: new Date(currentDate.getFullYear(), currentDate.getMonth()-1), maxDate: currentDate, subcategory:""})
+const SelectedTable = (submittedLpnParameters)=>{
 
-    const queriesSelect = ()=>{
-        return(
-            <div>
-                <label>Min Date</label>
-                <DatePicker selected={submittedLpnParameters.minDate} onChange={(date)=>updateSubmittedLpnParameters({...submittedLpnParameters, minDate:date})} />
-                <label>Max Date</label>
-                <DatePicker selected={submittedLpnParameters.maxDate} onChange={(date) => updateSubmittedLpnParameters({...submittedLpnParameters, maxDate:date})} />
-                <label>Subcategory</label>
-                <input type="text" name="subcategory" value={submittedLpnParameters.subcategory}onChange={(e)=>updateSubmittedLpnParameters({...submittedLpnParameters, subcategory:e.target.value})}/>
-            </div>
-        )
-            
-    };
-    const {data, loading, error} = useQuery(SUBMITTED_LPNS,{variables:{...submittedLpnParameters}});
-
+    console.log(submittedLpnParameters);
+    const {data, loading, error} = useQuery(SUBMITTED_LPNS,{variables:{...submittedLpnParameters.submittedLpnParameters}});
+// 
     if(loading){
         return<div>Loading...</div>
     }
@@ -131,7 +170,6 @@ const ServicesSelectedTable = ()=>{
     return(
         <div>
             <Header/>
-            {queriesSelect()}
             <CSVLink {...csvReport}>Export to CSV</CSVLink>
             <Table striped bordered hover>
                 {LpnTableHeader}
