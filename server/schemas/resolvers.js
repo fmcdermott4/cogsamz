@@ -10,7 +10,7 @@ const resolvers = {
   Date: dateScalar,
   Query: {
     AMM2: async () =>{
-        return await AMM2.find({})
+      return await AMM2.find({});
     },        
     BillCodes: async () =>{
         return await COGS.find({});
@@ -33,8 +33,21 @@ const resolvers = {
       const {LPN} = await args;
       return await SubmittedLpn.findOne({LPN:LPN})
     },
-    submittedLPNs: async ()=>{
-      return await SubmittedLpn.find({});
+    submittedLPNs: async (parent, args)=>{
+      const params = {};
+      if(args.minDate){
+        params.minDate = args.minDate
+      }else{
+        params.minDate = new Date(1549355954277)};
+      if(args.maxDate){
+        params.maxDate = args.maxDate
+      }else{
+        params.maxDate = new Date()}
+      if(args.subcategory){
+        return await SubmittedLpn.find({Subcategory: args.subcategory, SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}})
+      }else{
+        return await SubmittedLpn.find({SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}})
+      }
     }
   },
   Mutation: {

@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import {useQuery} from '@apollo/client';
 import {SUBMITTED_LPNS} from '../util/queries';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
 import { CSVLink } from "react-csv";
+import DatePicker from "react-datepicker";
 
 
 const Header = ()=>{
@@ -44,8 +46,23 @@ const LpnRow = (lpn, index)=>{
 
 
 const ServicesSelectedTable = ()=>{
+    const currentDate = new Date();
+    const [submittedLpnParameters, updateSubmittedLpnParameters] = useState({minDate: new Date(currentDate.getFullYear(), currentDate.getMonth()-1), maxDate: currentDate, subcategory:""})
 
-    const {data, loading, error} = useQuery(SUBMITTED_LPNS);
+    const queriesSelect = ()=>{
+        return(
+            <div>
+                <label>Min Date</label>
+                <DatePicker selected={submittedLpnParameters.minDate} onChange={(date)=>updateSubmittedLpnParameters({...submittedLpnParameters, minDate:date})} />
+                <label>Max Date</label>
+                <DatePicker selected={submittedLpnParameters.maxDate} onChange={(date) => updateSubmittedLpnParameters({...submittedLpnParameters, maxDate:date})} />
+                <label>Subcategory</label>
+                <input type="text" name="subcategory" value={submittedLpnParameters.subcategory}onChange={(e)=>updateSubmittedLpnParameters({...submittedLpnParameters, subcategory:e.target.value})}/>
+            </div>
+        )
+            
+    };
+    const {data, loading, error} = useQuery(SUBMITTED_LPNS,{variables:{...submittedLpnParameters}});
 
     if(loading){
         return<div>Loading...</div>
@@ -114,6 +131,7 @@ const ServicesSelectedTable = ()=>{
     return(
         <div>
             <Header/>
+            {queriesSelect()}
             <CSVLink {...csvReport}>Export to CSV</CSVLink>
             <Table striped bordered hover>
                 {LpnTableHeader}

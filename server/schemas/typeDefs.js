@@ -16,7 +16,7 @@ const typeDefs = gql`
     "Find the logged in user."
     me: User
     submittedLpn(LPN:String!):SubmittedLpn
-    submittedLPNs: [SubmittedLpn]
+    submittedLPNs(minDate:Date, maxDate:Date, subcategory:String): [SubmittedLpn]
   }
 
   type Mutation {

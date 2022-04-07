@@ -35,8 +35,8 @@ export const BILL_CODE = gql`
 `;
 
 export const SUBMITTED_LPNS = gql`
-query SubmittedLPNs {
-  submittedLPNs {
+query SubmittedLPNs($subcategory: String, $minDate: Date, $maxDate: Date) {
+  submittedLPNs(subcategory: $subcategory, minDate: $minDate, maxDate: $maxDate) {
     _id
     LPN
     SubmittedDate
