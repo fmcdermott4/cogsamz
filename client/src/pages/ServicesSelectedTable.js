@@ -54,12 +54,13 @@ if(loading){
 if(error){
     return<div>Query error.</div>
 }
-console.log(data.submittedLPNs);
+// console.log(data.submittedLPNs);
+
 
 const headers = [
 {label:"LPN", key:"LPN"},
 {label:"Subcategory", key:"Subcategory"},
-{label:"SubmittedDate", key:"SubmittedDate"},
+{label:"SubmittedDate", key:"date"},
 {label:"Cost", key:"Price"},
 {label:"FunctionTest", key:"FunctionTestChecked"},
 {label:"Cleaning", key:"CleaningChecked"},
@@ -73,15 +74,24 @@ const headers = [
 {label:"PartsCost", key:"Parts"}
 ];
 
-const csvReport = {
-    headers: headers,
-    data: data.submittedLPNs,
-    filename: 'SubmittedLpnExport.csv'
-}
+const lpn = JSON.parse(JSON.stringify(data.submittedLPNs))
 
-const lpn = data.submittedLPNs
 const LpnTable = lpn.map((lpn,index) => LpnRow(lpn,index));
 
+lpn.map((lpn)=>{
+    let submittedDate = new Date(lpn.SubmittedDate);
+    let year = submittedDate.getFullYear();
+    let month = submittedDate.getMonth();
+    let day = submittedDate.getDate();
+    const date = year.toString() + "-" + (month<10?"0":"")+month.toString()+"-"+(day<10?"0":"")+day.toString();
+    lpn.date = date;
+})
+
+const csvReport = {
+    headers: headers,
+    data: lpn,
+    filename: 'SubmittedLpnExport.csv'
+}
     const LpnTableHeader = <thead className='bgvi'>
                             <tr>
                                 <th>#</th>
