@@ -45,86 +45,83 @@ const LpnRow = (lpn, index)=>{
 
 const ServicesSelectedTable = ()=>{
 
+    const {data, loading, error} = useQuery(SUBMITTED_LPNS);
 
-const {data, loading, error} = useQuery(SUBMITTED_LPNS);
+    if(loading){
+        return<div>Loading...</div>
+    }
+    if(error){
+        return<div>Query error.</div>
+    }
 
-if(loading){
-    return<div>Loading...</div>
-}
-if(error){
-    return<div>Query error.</div>
-}
-// console.log(data.submittedLPNs);
+    const headers = [
+        {label:"LPN", key:"LPN"},
+        {label:"Subcategory", key:"Subcategory"},
+        {label:"SubmittedDate", key:"date"},
+        {label:"Cost", key:"Price"},
+        {label:"FunctionTest", key:"FunctionTestChecked"},
+        {label:"Cleaning", key:"CleaningChecked"},
+        {label:"Rebox", key:"ReboxChecked"},
+        {label:"Manual", key:"KittingChecked"},
+        {label:"Parts", key:"PartsChecked"},
+        {label:"FunctionTestCost", key:"FunctionTest"},
+        {label:"CleaningCost", key:"Cleaning"},
+        {label:"ReboxCost", key:"Rebox"},
+        {label:"ManualCost", key:"Kitting"},
+        {label:"PartsCost", key:"Parts"}
+    ];
 
+    const lpn = JSON.parse(JSON.stringify(data.submittedLPNs))
 
-const headers = [
-{label:"LPN", key:"LPN"},
-{label:"Subcategory", key:"Subcategory"},
-{label:"SubmittedDate", key:"date"},
-{label:"Cost", key:"Price"},
-{label:"FunctionTest", key:"FunctionTestChecked"},
-{label:"Cleaning", key:"CleaningChecked"},
-{label:"Rebox", key:"ReboxChecked"},
-{label:"Manual", key:"KittingChecked"},
-{label:"Parts", key:"PartsChecked"},
-{label:"FunctionTestCost", key:"FunctionTest"},
-{label:"CleaningCost", key:"Cleaning"},
-{label:"ReboxCost", key:"Rebox"},
-{label:"ManualCost", key:"Kitting"},
-{label:"PartsCost", key:"Parts"}
-];
+    const LpnTable = lpn.map((lpn,index) => LpnRow(lpn,index));
 
-const lpn = JSON.parse(JSON.stringify(data.submittedLPNs))
+    lpn.map((lpn)=>{
+        let submittedDate = new Date(lpn.SubmittedDate);
+        let year = submittedDate.getFullYear();
+        let month = submittedDate.getMonth();
+        let day = submittedDate.getDate();
+        const date = year.toString() + "-" + (month<10?"0":"")+month.toString()+"-"+(day<10?"0":"")+day.toString();
+        lpn.date = date;
+    })
 
-const LpnTable = lpn.map((lpn,index) => LpnRow(lpn,index));
+    const csvReport = {
+        headers: headers,
+        data: lpn,
+        filename: 'SubmittedLpnExport.csv'
+    };
 
-lpn.map((lpn)=>{
-    let submittedDate = new Date(lpn.SubmittedDate);
-    let year = submittedDate.getFullYear();
-    let month = submittedDate.getMonth();
-    let day = submittedDate.getDate();
-    const date = year.toString() + "-" + (month<10?"0":"")+month.toString()+"-"+(day<10?"0":"")+day.toString();
-    lpn.date = date;
-})
-
-const csvReport = {
-    headers: headers,
-    data: lpn,
-    filename: 'SubmittedLpnExport.csv'
-}
-    const LpnTableHeader = <thead className='bgvi'>
-                            <tr>
-                                <th>#</th>
-                                <th>LPN</th>
-                                <th>Subcategory</th>
-                                <th>SubmittedDate</th>
-                                <th>Cost</th>
-                                <th>Function Test</th>
-                                <th>Cleaning</th>
-                                <th>Rebox</th>
-                                <th>Manual</th>
-                                <th>Parts</th>
-                                <th>Function Test Cost</th>
-                                <th>Cleaning Cost</th>
-                                <th>Rebox Cost</th>
-                                <th>Manual Cost</th>
-                                <th>Parts Cost</th>
-                            </tr>
-                        </thead>
+    const LpnTableHeader =
+        <thead className='bgvi'>
+            <tr>
+                <th>#</th>
+                <th>LPN</th>
+                <th>Subcategory</th>
+                <th>SubmittedDate</th>
+                <th>Cost</th>
+                <th>Function Test</th>
+                <th>Cleaning</th>
+                <th>Rebox</th>
+                <th>Manual</th>
+                <th>Parts</th>
+                <th>Function Test Cost</th>
+                <th>Cleaning Cost</th>
+                <th>Rebox Cost</th>
+                <th>Manual Cost</th>
+                <th>Parts Cost</th>
+            </tr>
+        </thead>;
 
     return(
-    <div>
-        <Header/>
-        <CSVLink {...csvReport}>Export to CSV</CSVLink>
-        <Table striped bordered hover>
-            {LpnTableHeader}
-            <tbody>
-                {LpnTable}
-            </tbody>
-
-        </Table>
-    </div>
-        
+        <div>
+            <Header/>
+            <CSVLink {...csvReport}>Export to CSV</CSVLink>
+            <Table striped bordered hover>
+                {LpnTableHeader}
+                <tbody>
+                    {LpnTable}
+                </tbody>
+            </Table>
+        </div>        
     )
 }
 
