@@ -35,14 +35,25 @@ export const BILL_CODE = gql`
 `;
 
 export const SUBMITTED_LPNS = gql`
-  query SubmittedLPNs {
-    submittedLPNs {
-      _id
-      LPN
-      SubmittedDate
-      Price
-    }
+query SubmittedLPNs {
+  submittedLPNs {
+    _id
+    LPN
+    SubmittedDate
+    Price
+    FunctionTestChecked
+    CleaningChecked
+    ReboxChecked
+    KittingChecked
+    PartsChecked
+    FunctionTest
+    Cleaning
+    Rebox
+    Parts
+    Kitting
+    Subcategory
   }
+}
 `;
 
 export const SUBMITTED_LPN = gql`

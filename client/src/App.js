@@ -10,6 +10,7 @@ import { client } from "./util/apolloClient";
 import { AuthProvider } from "./util/auth";
 import Cogs from "./pages/Cogs";
 import CogsAdmin from "./pages/CogsAdmin";
+import ServicesSelectedTable from "./pages/ServicesSelectedTable";
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/cogsadmin">
               <CogsAdmin />
+            </PrivateRoute>
+            <PrivateRoute path="/servicesselected">
+              <ServicesSelectedTable/>
             </PrivateRoute>
           </Switch>
         </AuthProvider>

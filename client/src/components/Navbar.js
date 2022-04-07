@@ -14,6 +14,9 @@ export default function Navbar() {
           <NavLink to="/cogs" className="navbar-link">
            Cogs Tool
           </NavLink>
+          <NavLink to="/servicesselected" className="navbar-link">
+            Service Table
+          </NavLink>
           <NavLink to="/user" className="navbar-link">
             User
           </NavLink>

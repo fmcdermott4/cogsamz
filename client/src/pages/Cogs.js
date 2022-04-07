@@ -121,6 +121,7 @@ const ServicesCheckboxes = (lpnData) =>{
     updateSubmittedLpn({variables:{
         "lpn": lpnData.data.LPN.LPN,
         "price": lpnData.data.LPN.Price,
+        "subcategory":billCode,
         "functionTestChecked": passFail.functionTest,
         "cleaningChecked": passFail.cleaning,
         "reboxChecked": passFail.rebox,

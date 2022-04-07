@@ -12,6 +12,10 @@ const submittedLpnSchema = new Schema({
         required: true,
         default: Date.now
     },
+    Subcategory:{
+        type: String,
+        trim: true
+    },
     Price:{
         type: String,
         trim: true,
