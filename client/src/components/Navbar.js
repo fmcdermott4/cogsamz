@@ -1,39 +1,100 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../util/auth";
 import "./Navbar.css";
+import {Navbar, Container, Nav, Button} from "react-bootstrap";
 
-export default function Navbar() {
+export default function NavigationBar() {
   const { isLoggedIn, logout } = useAuth();
   return (
-    <nav className="navbar">
-      <NavLink exact to="/" className="navbar-link">
-        Home
-      </NavLink>
+
+
+
+
+    <Navbar bg="primary" variant="dark">
+      <Container fluid>
+        <Navbar.Brand href="/">COGS</Navbar.Brand>
+        
       {isLoggedIn ? (
-        <>
-          <NavLink to="/cogs" className="navbar-link">
+        <Nav>
+          <Nav.Link href="/cogs">
            Cogs Tool
-          </NavLink>
-          <NavLink to="/servicesselected" className="navbar-link">
+          </Nav.Link>
+          <Nav.Link href="/servicesselected">
             Service Table
-          </NavLink>
-          <NavLink to="/user" className="navbar-link">
+          </Nav.Link>
+          <Nav.Link href="/user">
             User
-          </NavLink>
-          <button className="navbar-link" onClick={logout}>
+          </Nav.Link>
+          <Button variant="warning" onClick={logout}>
             Logout
-          </button>
-        </>
+          </Button>
+        </Nav>
       ) : (
-        <>
-          <NavLink to="/login" className="navbar-link">
+        <Nav>
+          <Nav.Link href="/login" className="navbar-link">
             Login
-          </NavLink>
-          <NavLink to="/signup" className="navbar-link">
+          </Nav.Link>
+          <Nav.Link href="/signup" className="navbar-link">
             Signup
-          </NavLink>
-        </>
+          </Nav.Link>
+        </Nav>
       )}
-    </nav>
+      </Container>
+    </Navbar>
   );
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // return (
+  //   <nav className="navbar">
+  //     <NavLink exact href="/" className="navbar-link">
+  //       Home
+  //     </NavLink>
+  //     {isLoggedIn ? (
+  //       <>
+  //         <NavLink href="/cogs" className="navbar-link">
+  //          Cogs Tool
+  //         </NavLink>
+  //         <NavLink href="/servicesselected" className="navbar-link">
+  //           Service Table
+  //         </NavLink>
+  //         <NavLink href="/user" className="navbar-link">
+  //           User
+  //         </NavLink>
+  //         <button className="navbar-link" onClick={logout}>
+  //           Logout
+  //         </button>
+  //       </>
+  //     ) : (
+  //       <>
+  //         <NavLink href="/login" className="navbar-link">
+  //           Login
+  //         </NavLink>
+  //         <NavLink href="/signup" className="navbar-link">
+  //           Signup
+  //         </NavLink>
+  //       </>
+  //     )}
+  //   </nav>
+  // );
 }

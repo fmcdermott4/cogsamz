@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useQuery} from '@apollo/client';
 import {SUBMITTED_LPNS} from '../util/queries';
-import Table from 'react-bootstrap/Table';
+import {Table, Container} from 'react-bootstrap';
 import { CSVLink } from "react-csv";
 import DatePicker from 'react-date-picker';
 
@@ -12,8 +12,9 @@ const ServicesSelectedTable = ()=>{
 
         return(
             <div>
+                <Container>
                 <br/>
-                <label>Dates:
+                <label>Date Range:
                     <DatePicker selectRange={true} onChange={(date)=>updateSubmittedLpnParameters({...submittedLpnParameters, minDate:date[0], maxDate:date[1]})} value={[submittedLpnParameters.minDate, submittedLpnParameters.maxDate]}/>
                 </label>
                 <br/>                
@@ -21,6 +22,7 @@ const ServicesSelectedTable = ()=>{
                     <input type="text" name="subcategory" value={submittedLpnParameters.subcategory}onChange={(e)=>updateSubmittedLpnParameters({...submittedLpnParameters, subcategory:e.target.value})}/>
                 </label>
                 <SelectedTable submittedLpnParameters={submittedLpnParameters}/>
+                </Container>
             </div>
         )            
     
@@ -140,14 +142,17 @@ const SelectedTable = (submittedLpnParameters)=>{
 
     return(
         <div>
+            <Container md="auto">
             <Header/>
             <CSVLink {...csvReport}>Export to CSV</CSVLink>
-            <Table striped bordered hover>
+            
+            <Table striped bordered hover size="sm">
                 {LpnTableHeader}
                 <tbody>
                     {LpnTable}
                 </tbody>
             </Table>
+            </Container>
         </div>        
     )
 }

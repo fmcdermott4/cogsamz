@@ -1,6 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import NavigationBar from "./components/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -12,12 +12,13 @@ import Cogs from "./pages/Cogs";
 import CogsAdmin from "./pages/CogsAdmin";
 import ServicesSelectedTable from "./pages/ServicesSelectedTable";
 
+
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         <AuthProvider>
-          <Navbar />
+          <NavigationBar />
           <Switch>
             <Route exact path="/">
               <Home />
