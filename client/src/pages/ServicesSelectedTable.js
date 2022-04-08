@@ -3,52 +3,23 @@ import {useQuery} from '@apollo/client';
 import {SUBMITTED_LPNS} from '../util/queries';
 import Table from 'react-bootstrap/Table';
 import { CSVLink } from "react-csv";
-import DatePicker from "react-datepicker";
-import {Row, Col, Container} from 'react-bootstrap';
+import DatePicker from 'react-date-picker';
 
 const ServicesSelectedTable = ()=>{
     const currentDate = new Date();
 
-    const [submittedLpnParameters, updateSubmittedLpnParameters] = useState({minDate: new Date(currentDate.getFullYear(), currentDate.getMonth()-1), maxDate: currentDate, subcategory:""})
-    
-
+    const [submittedLpnParameters, updateSubmittedLpnParameters] = useState({minDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()), maxDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1), subcategory:""})
 
         return(
             <div>
-                <Row>
-                        <Col>
-                            <label>Min Date</label>
-                        </Col>
-                        <Col>
-                            <DatePicker showMonthDropdown showYearDropdown withPortal={true} popperModifiers={{
-                    flip: {
-                        behavior: ['bottom'] // don't allow it to flip to be above
-                    },
-                    preventOverflow: {
-                        enabled: false // tell it not to try to stay within the view (this prevents the popper from covering the element you clicked)
-                    },
-                    hide: {
-                        enabled: false // turn off since needs preventOverflow to be enabled
-                    }
-                }}className="form-control" selected={submittedLpnParameters.minDate} onChange={(date)=>updateSubmittedLpnParameters({...submittedLpnParameters, minDate:date})} />
-                            
-                        </Col>
-
-
-                    
-                </Row>
-                <Row>
-                    <Col>
-                        <label>Max Date</label>
-                    </Col>
-                    <Col>
-                        <DatePicker className="form-control" selected={submittedLpnParameters.maxDate} onChange={(date) => updateSubmittedLpnParameters({...submittedLpnParameters, maxDate:date})} />
-                    </Col>
-                </Row>
-                
-                
-                <label>Subcategory</label><br/>
-                <input type="text" name="subcategory" value={submittedLpnParameters.subcategory}onChange={(e)=>updateSubmittedLpnParameters({...submittedLpnParameters, subcategory:e.target.value})}/>
+                <br/>
+                <label>Dates:
+                    <DatePicker selectRange={true} onChange={(date)=>updateSubmittedLpnParameters({...submittedLpnParameters, minDate:date[0], maxDate:date[1]})} value={[submittedLpnParameters.minDate, submittedLpnParameters.maxDate]}/>
+                </label>
+                <br/>                
+                <label>Subcategory:
+                    <input type="text" name="subcategory" value={submittedLpnParameters.subcategory}onChange={(e)=>updateSubmittedLpnParameters({...submittedLpnParameters, subcategory:e.target.value})}/>
+                </label>
                 <SelectedTable submittedLpnParameters={submittedLpnParameters}/>
             </div>
         )            
@@ -100,7 +71,7 @@ const LpnRow = (lpn, index)=>{
 
 const SelectedTable = (submittedLpnParameters)=>{
 
-    console.log(submittedLpnParameters);
+    // console.log(submittedLpnParameters);
     const {data, loading, error} = useQuery(SUBMITTED_LPNS,{variables:{...submittedLpnParameters.submittedLpnParameters}});
 // 
     if(loading){
