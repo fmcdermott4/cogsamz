@@ -71,7 +71,7 @@ const Header = ()=>{
 const LpnRow = (lpn, index)=>{
     let submittedDate = new Date(lpn.SubmittedDate);
     let year = submittedDate.getFullYear();
-    let month = submittedDate.getMonth();
+    let month = submittedDate.getMonth()+1;
     let day = submittedDate.getDate();
 
     return(
@@ -134,7 +134,7 @@ const SelectedTable = (submittedLpnParameters)=>{
     lpn.map((lpn)=>{
         let submittedDate = new Date(lpn.SubmittedDate);
         let year = submittedDate.getFullYear();
-        let month = submittedDate.getMonth();
+        let month = submittedDate.getMonth()+1;
         let day = submittedDate.getDate();
         const date = year.toString() + "-" + (month<10?"0":"")+month.toString()+"-"+(day<10?"0":"")+day.toString();
         lpn.date = date;
