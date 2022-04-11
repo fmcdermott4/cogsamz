@@ -1,23 +1,29 @@
 import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
 import {useQuery} from '@apollo/client';
 import {SUBMITTED_LPNS} from '../util/queries';
 import {Table, Container} from 'react-bootstrap';
 import { CSVLink } from "react-csv";
 import DatePicker from 'react-date-picker';
+import {useAuth} from '../util/auth'
 
 const ServicesSelectedTable = ()=>{
     const currentDate = new Date();
+    const history = useHistory();
+
+    const {user} = useAuth();
 
     const [submittedLpnParameters, updateSubmittedLpnParameters] = useState({minDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()), maxDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+1), subcategory:""})
-
+        if(user.access !== "admin"){
+                history.push("/")
+            }
         return(
             <div>
                 <Container>
                 <br/>
                 <label>Date Range:
                     <DatePicker selectRange={true} onChange={(date)=>updateSubmittedLpnParameters({...submittedLpnParameters, minDate:date[0], maxDate:date[1]})} value={[submittedLpnParameters.minDate, submittedLpnParameters.maxDate]}/>
-                </label>
-                <br/>                
+                </label>             
                 <label>Subcategory:
                     <input type="text" name="subcategory" value={submittedLpnParameters.subcategory}onChange={(e)=>updateSubmittedLpnParameters({...submittedLpnParameters, subcategory:e.target.value})}/>
                 </label>
@@ -111,6 +117,7 @@ const SelectedTable = (submittedLpnParameters)=>{
         let day = submittedDate.getDate();
         const date = year.toString() + "-" + (month<10?"0":"")+month.toString()+"-"+(day<10?"0":"")+day.toString();
         lpn.date = date;
+        return(lpn)
     })
 
     const csvReport = {

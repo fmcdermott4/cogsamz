@@ -72,6 +72,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     lastLogin: Date!
+    access:String
   }
 `;
 

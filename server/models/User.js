@@ -23,6 +23,10 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  access:{
+    type: String,
+    default: "user"
+  }
 });
 
 userSchema.pre("save", async function (next) {

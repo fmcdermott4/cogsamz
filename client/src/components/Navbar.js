@@ -1,27 +1,25 @@
-import { NavLink } from "react-router-dom";
 import { useAuth } from "../util/auth";
 import "./Navbar.css";
 import {Navbar, Container, Nav, Button} from "react-bootstrap";
 
 export default function NavigationBar() {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, user } = useAuth();
+
+
   return (
-
-
-
 
     <Navbar bg="primary" variant="dark">
       <Container fluid>
         <Navbar.Brand href="/">COGS</Navbar.Brand>
-        
+        {/* {console.log(user)} */}
       {isLoggedIn ? (
         <Nav>
           <Nav.Link href="/cogs">
            Cogs Tool
           </Nav.Link>
-          <Nav.Link href="/servicesselected">
+          {user.access==="admin" ? <Nav.Link href="/servicesselected">
             Service Table
-          </Nav.Link>
+          </Nav.Link>:<div/>}
           <Nav.Link href="/user">
             User
           </Nav.Link>
