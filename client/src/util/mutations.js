@@ -37,8 +37,8 @@ mutation upsertFunctionTest($lpn: ID, $pass: Boolean, $test: [CycleInput]) {
 `;
 
 export const UPSERT_SUBMITTED_LPN = gql`
-  mutation upsertSubmittedLpn($lpn: ID!, $functionTest: String!, $cleaning: String!, $rebox: String!, $parts: String!, $functionTestChecked: Boolean, $cleaningChecked: Boolean, $reboxChecked: Boolean, $kittingChecked: Boolean, $partsChecked: Boolean, $kitting: String) {
-    upsertSubmittedLpn(LPN: $lpn, FunctionTest: $functionTest, Cleaning: $cleaning, Rebox: $rebox, Parts: $parts, FunctionTestChecked: $functionTestChecked, CleaningChecked: $cleaningChecked, ReboxChecked: $reboxChecked, KittingChecked: $kittingChecked, PartsChecked: $partsChecked, Kitting: $kitting) {
+  mutation upsertSubmittedLpn($lpn: ID!, $user:ID, $functionTest: String!, $cleaning: String!, $rebox: String!, $parts: String!, $functionTestChecked: Boolean, $cleaningChecked: Boolean, $reboxChecked: Boolean, $kittingChecked: Boolean, $partsChecked: Boolean, $kitting: String) {
+    upsertSubmittedLpn(LPN: $lpn, User:$user, FunctionTest: $functionTest, Cleaning: $cleaning, Rebox: $rebox, Parts: $parts, FunctionTestChecked: $functionTestChecked, CleaningChecked: $cleaningChecked, ReboxChecked: $reboxChecked, KittingChecked: $kittingChecked, PartsChecked: $partsChecked, Kitting: $kitting) {
       _id
     }
   }

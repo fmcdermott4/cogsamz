@@ -11,6 +11,7 @@ let goodLpn=false;
 const Cogs = () => {
     const { isLoggedIn, user } = useAuth();
     const [lpn, changeLpn] = useState({"lpn":""});
+    
 
     
 
@@ -68,6 +69,8 @@ const LPNrender = (lpnValue) =>{
 
 const ServicesCheckboxes = (lpnData) =>{
 
+    const { user } = useAuth();
+
     const budget = parseInt(lpnData.data.LPN.Price) * budgetPercent;
     
     const [passFail, changePassFail] = useState({
@@ -119,6 +122,7 @@ const ServicesCheckboxes = (lpnData) =>{
     // console.log(lpnData.data.LPN._id);
     updateSubmittedLpn({variables:{
         "lpn": lpnData.data.LPN._id,
+        "user": user._id,
         "functionTestChecked": passFail.functionTest,
         "cleaningChecked": passFail.cleaning,
         "reboxChecked": passFail.rebox,

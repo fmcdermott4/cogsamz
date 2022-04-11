@@ -5,6 +5,10 @@ const submittedLpnSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "AMM2",
         required: true,
+    },
+    User:{
+        type: Schema.Types.ObjectId,
+        ref:"User"
     },    
     SubmittedDate:{
         type:Date,
