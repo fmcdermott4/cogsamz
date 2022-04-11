@@ -93,7 +93,6 @@ const SelectedTable = (submittedLpnParameters)=>{
 
     const LpnTable = lpn.map((lpn,index) => LpnRow(lpn,index));
     
-    console.log(lpn);
 
 
 

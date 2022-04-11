@@ -44,7 +44,15 @@ const resolvers = {
       }else{
         params.maxDate = new Date()}
       if(args.subcategory){
-        return await SubmittedLpn.find({Subcategory: args.subcategory, SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}}).populate('LPN User');
+        let data = await SubmittedLpn.find({SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}}).populate('LPN User');
+        let i = data.length;
+        while(i--){
+          if(!(data[i].LPN.Subcategory.toLowerCase()).includes(args.subcategory.toLowerCase())){
+            data.splice(i,1)
+          }
+          
+        }
+        return(data);
       }else{
         return await SubmittedLpn.find({SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}}).populate('LPN User');
       }
