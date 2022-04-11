@@ -67,7 +67,6 @@ const LPNrender = (lpnValue) =>{
 }
 
 const ServicesCheckboxes = (lpnData) =>{
-    // console.log(lpnData.data.LPN.Price)
 
     const budget = parseInt(lpnData.data.LPN.Price) * budgetPercent;
     
@@ -117,7 +116,7 @@ const ServicesCheckboxes = (lpnData) =>{
         });
         
     }
-
+    // console.log(lpnData.data.LPN._id);
     updateSubmittedLpn({variables:{
         "lpn": lpnData.data.LPN.LPN,
         "price": lpnData.data.LPN.Price,
@@ -138,7 +137,6 @@ const ServicesCheckboxes = (lpnData) =>{
         <div>
             <hr/>
             <form>
-                {console.log(budget + " " + cogsCost)}
                 <input type="checkbox" checked disabled/><label>Function test</label>
                 <br/>
                 
@@ -156,7 +154,6 @@ const ServicesCheckboxes = (lpnData) =>{
             </form>
             <hr/>
             {cogsPassFail?<h3>Pass</h3>:<h3>Fail</h3>}
-            {console.log(lpnData.data.LPN.Price)}
         </div>
     )
 }

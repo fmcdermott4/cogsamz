@@ -10,6 +10,7 @@ import { client } from "./util/apolloClient";
 import { AuthProvider} from "./util/auth";
 import Cogs from "./pages/Cogs";
 import CogsAdmin from "./pages/CogsAdmin";
+import FunctionTest from "./pages/FunctionTest";
 import ServicesSelectedTable from "./pages/ServicesSelectedTable";
 
 
@@ -37,6 +38,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/cogs">
               <Cogs />
+            </PrivateRoute>
+            <PrivateRoute path="/functiontest">
+              <FunctionTest/>
             </PrivateRoute>
             <PrivateRoute path="/cogsadmin">
               <CogsAdmin />

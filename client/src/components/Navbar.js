@@ -17,6 +17,9 @@ export default function NavigationBar() {
           <Nav.Link href="/cogs">
            Cogs Tool
           </Nav.Link>
+          <Nav.Link href="/functionTest">
+            Function Test
+          </Nav.Link>
           {user.access==="admin" ? <Nav.Link href="/servicesselected">
             Service Table
           </Nav.Link>:<div/>}
