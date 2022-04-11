@@ -2,24 +2,14 @@ const {Schema, model} = require('mongoose');
 
 const submittedLpnSchema = new Schema({ 
     LPN:{
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "AMM2",
         required: true,
-        trim: true,
-        unique: true
     },    
     SubmittedDate:{
         type:Date,
         required: true,
         default: Date.now
-    },
-    Subcategory:{
-        type: String,
-        trim: true
-    },
-    Price:{
-        type: String,
-        trim: true,
-        required: true
     },    
     FunctionTestChecked:{
         type: Boolean,

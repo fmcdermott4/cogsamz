@@ -21,7 +21,7 @@ const typeDefs = gql`
 
   type Mutation {
     upsertFunctionTest(LPN:ID, Pass:Boolean, Test:[CycleInput]):FunctionTest
-    upsertSubmittedLpn(LPN:String!, Subcategory:String!, Price:String!, FunctionTestChecked:Boolean, CleaningChecked:Boolean, ReboxChecked: Boolean, KittingChecked: Boolean, PartsChecked: Boolean, FunctionTest: String!, Cleaning: String!, Rebox: String!, Parts: String!, Kitting: String): SubmittedLpn
+    upsertSubmittedLpn(LPN:ID!, FunctionTestChecked:Boolean, CleaningChecked:Boolean, ReboxChecked: Boolean, KittingChecked: Boolean, PartsChecked: Boolean, FunctionTest: String!, Cleaning: String!, Rebox: String!, Parts: String!, Kitting: String): SubmittedLpn
     createUser(email: String!, password: String!, username: String!): Auth
     login(email: String!, password: String!): Auth
   }
@@ -73,10 +73,8 @@ const typeDefs = gql`
 
   type SubmittedLpn {
     _id: ID
-    LPN: String!
+    LPN: ID!
     SubmittedDate: Date!
-    Subcategory:String!
-    Price: String!
     FunctionTestChecked: Boolean
     CleaningChecked: Boolean
     ReboxChecked: Boolean
