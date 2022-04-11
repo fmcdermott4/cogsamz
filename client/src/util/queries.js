@@ -35,12 +35,10 @@ export const BILL_CODE = gql`
 `;
 
 export const SUBMITTED_LPNS = gql`
-query SubmittedLPNs($subcategory: String, $minDate: Date, $maxDate: Date) {
-  submittedLPNs(subcategory: $subcategory, minDate: $minDate, maxDate: $maxDate) {
+query SubmittedLPNs($minDate: Date, $maxDate: Date, $subcategory: String) {
+  submittedLPNs(minDate: $minDate, maxDate: $maxDate, subcategory: $subcategory) {
     _id
-    LPN
     SubmittedDate
-    Price
     FunctionTestChecked
     CleaningChecked
     ReboxChecked
@@ -51,7 +49,21 @@ query SubmittedLPNs($subcategory: String, $minDate: Date, $maxDate: Date) {
     Rebox
     Parts
     Kitting
-    Subcategory
+    LPN {
+      _id
+      LPN
+      Subcategory
+      Price
+      DateCreated
+      Active
+    }
+    User {
+      _id
+      username
+      email
+      lastLogin
+      access
+    }
   }
 }
 `;

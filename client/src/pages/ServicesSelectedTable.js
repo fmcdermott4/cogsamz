@@ -18,7 +18,7 @@ const ServicesSelectedTable = ()=>{
                 history.push("/")
             }
         return(
-            <div>
+            <div>                
                 <Container>
                 <br/>
                 <label>Date Range:
@@ -52,14 +52,13 @@ const LpnRow = (lpn, index)=>{
     let year = submittedDate.getFullYear();
     let month = submittedDate.getMonth()+1;
     let day = submittedDate.getDate();
-
     return(
         <tr key = {index} className='even'>
             <td> {index + 1} </td>
-            <td>{lpn.LPN}</td>
-            <td>{lpn.Subcategory}</td>
+            <td>{lpn.LPN.LPN}</td>
+            <td>{lpn.LPN.Subcategory}</td>
             <td>{year}-{month<10?"0":""}{month}-{day<10?"0":""}{day}</td>
-            <td>${lpn.Price}</td>
+            <td>${lpn.LPN.Price}</td>
             <td>{lpn.FunctionTestChecked===true?<div>Yes</div>:<div>No</div>}</td>
             <td>{lpn.CleaningChecked===true?<div>Yes</div>:<div>No</div>}</td>
             <td>{lpn.ReboxChecked===true?<div>Yes</div>:<div>No</div>}</td>
@@ -88,12 +87,23 @@ const SelectedTable = (submittedLpnParameters)=>{
     if(error){
         return<div>Query error.</div>
     }
+    
+
+    const lpn = JSON.parse(JSON.stringify(data.submittedLPNs));
+
+    const LpnTable = lpn.map((lpn,index) => LpnRow(lpn,index));
+    
+    console.log(lpn);
+
+
+
+
 
     const headers = [
-        {label:"LPN", key:"LPN"},
-        {label:"Subcategory", key:"Subcategory"},
+        {label:"LPN", key:"LPN.LPN"},
+        {label:"Subcategory", key:"LPN.Subcategory"},
         {label:"SubmittedDate", key:"date"},
-        {label:"Cost", key:"Price"},
+        {label:"Cost", key:"LPN.Price"},
         {label:"FunctionTest", key:"FunctionTestChecked"},
         {label:"Cleaning", key:"CleaningChecked"},
         {label:"Rebox", key:"ReboxChecked"},
@@ -106,9 +116,9 @@ const SelectedTable = (submittedLpnParameters)=>{
         {label:"PartsCost", key:"Parts"}
     ];
 
-    const lpn = JSON.parse(JSON.stringify(data.submittedLPNs))
+    // const lpn = JSON.parse(JSON.stringify(data.submittedLPNs))
 
-    const LpnTable = lpn.map((lpn,index) => LpnRow(lpn,index));
+    // 
 
     lpn.map((lpn)=>{
         let submittedDate = new Date(lpn.SubmittedDate);

@@ -31,7 +31,7 @@ const resolvers = {
     },
     submittedLpn: async (parent, args)=>{
       const {LPN} = await args;
-      return await SubmittedLpn.findOne({LPN:LPN})
+      return await SubmittedLpn.findOne({LPN:LPN}).populate('LPN User');
     },
     submittedLPNs: async (parent, args)=>{
       const params = {};
@@ -44,9 +44,9 @@ const resolvers = {
       }else{
         params.maxDate = new Date()}
       if(args.subcategory){
-        return await SubmittedLpn.find({Subcategory: args.subcategory, SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}}).populate('LPN');
+        return await SubmittedLpn.find({Subcategory: args.subcategory, SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}}).populate('LPN User');
       }else{
-        return await SubmittedLpn.find({SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}}).populate('LPN');
+        return await SubmittedLpn.find({SubmittedDate:{$gte:params.minDate, $lte:params.maxDate}}).populate('LPN User');
       }
     }
   },
