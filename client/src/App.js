@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import ProtectedPageExample from "./pages/ProtectedPageExample";
 import SignUp from "./pages/SignUp";
 import { client } from "./util/apolloClient";
-import { AuthProvider, useAuth } from "./util/auth";
+import { AuthProvider} from "./util/auth";
 import Cogs from "./pages/Cogs";
 import CogsAdmin from "./pages/CogsAdmin";
 import ServicesSelectedTable from "./pages/ServicesSelectedTable";

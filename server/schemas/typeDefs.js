@@ -20,6 +20,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    upsertFunctionTest(LPN:ID, Pass:Boolean, Test:[CycleInput]):FunctionTest
     upsertSubmittedLpn(LPN:String!, Subcategory:String!, Price:String!, FunctionTestChecked:Boolean, CleaningChecked:Boolean, ReboxChecked: Boolean, KittingChecked: Boolean, PartsChecked: Boolean, FunctionTest: String!, Cleaning: String!, Rebox: String!, Parts: String!, Kitting: String): SubmittedLpn
     createUser(email: String!, password: String!, username: String!): Auth
     login(email: String!, password: String!): Auth
@@ -37,6 +38,27 @@ const typeDefs = gql`
     Price: String
     DateCreated: Date
     Active: Boolean
+  }
+
+  input CycleInput{
+    _id:ID
+    User:ID!
+    StartTime:Date
+    EndTime:Date
+  }
+
+  type Cycle{
+    _id:ID!
+    User:ID!
+    StartTime:Date!
+    EndTime:Date!
+  }
+
+  type FunctionTest {
+    _id: ID
+    LPN: ID    
+    Pass: Boolean
+    Test: [Cycle]
   }
 
   type COGS {
@@ -66,6 +88,7 @@ const typeDefs = gql`
     Parts: String!
     Kitting: String!
   }
+  
 
   type User {
     _id: ID!
