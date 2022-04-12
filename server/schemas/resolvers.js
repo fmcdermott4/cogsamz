@@ -17,7 +17,7 @@ const resolvers = {
     }, 
     BillCode: async (parent, {BillCode})=>{
         return await COGS.findOne({BillCode:BillCode})
-    },
+    },    
     LPN: async (parent, {LPN}) =>{
         return await AMM2.findOne({LPN:LPN});
     },
@@ -60,8 +60,12 @@ const resolvers = {
   },
   Mutation: {
     upsertFunctionTest: async (parent, args)=>{
-      return await FunctionTest.findOneAndUpdate({LPN:args.LPN}, {...args}, {new:true, upsert:true, setDefaultsOnInsert: true});
-      
+      console.log(args.Test)
+      return await AMM2.findOne({LPN:args.LPN}, (err, data)=>{
+        // console.log(data);
+        FunctionTest.findOneAndUpdate({LPN:data._id},{LPN:data._id, Pass:args.Pass, $push:{Test:[args.Test[0]]}}, {new:true, upsert:true, setDefaultsOnInsert: true})
+      });
+
     },
     upsertSubmittedLpn: async (parent,args)=>{
       const {LPN} = await args;

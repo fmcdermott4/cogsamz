@@ -69,6 +69,7 @@ const LpnRow = (lpn, index)=>{
             <td>${lpn.Rebox}</td>
             <td>${lpn.Kitting}</td>
             <td>${lpn.Parts}</td>
+            <td>{lpn.User.username}</td>
         </tr>
     )
 
@@ -112,7 +113,8 @@ const SelectedTable = (submittedLpnParameters)=>{
         {label:"CleaningCost", key:"Cleaning"},
         {label:"ReboxCost", key:"Rebox"},
         {label:"ManualCost", key:"Kitting"},
-        {label:"PartsCost", key:"Parts"}
+        {label:"PartsCost", key:"Parts"},
+        {label:"User", key:"User.username"}
     ];
 
     // const lpn = JSON.parse(JSON.stringify(data.submittedLPNs))
@@ -153,6 +155,7 @@ const SelectedTable = (submittedLpnParameters)=>{
                 <th>Rebox Cost</th>
                 <th>Manual Cost</th>
                 <th>Parts Cost</th>
+                <th>User</th>
             </tr>
         </thead>;
 

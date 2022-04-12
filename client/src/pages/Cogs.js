@@ -33,7 +33,7 @@ const Cogs = () => {
     return (
         <div>
         {/* TODO: display logged in user's username */}
-            <h1>Welcome {isLoggedIn ? user.username : "Guest"}!</h1>
+            <h1>COGS Module</h1>
             <hr />
             <form onSubmit={handleSubmit}>
                 <label>LPN:</label>
