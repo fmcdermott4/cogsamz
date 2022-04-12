@@ -2,11 +2,14 @@ import React, {useState} from 'react';
 import { useAuth } from "../util/auth";
 import {useQuery, useMutation} from '@apollo/client';
 import {LPN} from '../util/queries'
+import {UPSERT_FUNCTION_TEST} from '../util/mutations';
+import Button from 'react-bootstrap/Button';
+import { useHistory } from "react-router-dom";
 
 let goodLpn = false;
+let submitButton = false;
 const FunctionTest = ()=>{
     
-    const { isLoggedIn, user } = useAuth();
 
     const [lpn, changeLpn] = useState({"lpn":""});
     
@@ -42,10 +45,13 @@ const FunctionTest = ()=>{
 
 const FunctionTestForm = (lpnValue)=>{
 
+    const history = useHistory();
+
     const {user} = useAuth();
-    console.log(user);
 
     const{data, loading, error} = useQuery(LPN,{variables:{lpn:lpnValue.value.lpn}})
+
+    const [upsertFunctionTest] = useMutation(UPSERT_FUNCTION_TEST);
 
     const [functionTest, updateFunctionTest] = useState(
         {
@@ -54,11 +60,38 @@ const FunctionTestForm = (lpnValue)=>{
             "test":{
                 "User": user._id,
                 "StartTime": new Date(),
-                "EndTime":null
+                "EndTime":new Date()
             }
         }
     )
 
+    const unitPass = ()=>{
+        
+        const softFunctionTest = JSON.parse(JSON.stringify(functionTest));
+        softFunctionTest.pass = true;
+        softFunctionTest.test.EndTime = new Date();
+        updateFunctionTest(JSON.parse(JSON.stringify(softFunctionTest)));
+        submitButton=true;
+    
+    };
+
+    const unitFail = ()=>{
+
+        const softFunctionTest = JSON.parse(JSON.stringify(functionTest));
+        softFunctionTest.pass = false;
+        softFunctionTest.test.EndTime = new Date();
+        updateFunctionTest(JSON.parse(JSON.stringify(softFunctionTest)))
+        submitButton=true;
+    };
+
+    const submitFunctionTest = ()=>{
+        upsertFunctionTest({variables:{lpn:functionTest.lpn, pass:functionTest.pass, test:functionTest.test}});
+        history.push("/functionTest");
+
+    }
+    
+
+    
     if(error){
         return(<div/>)
     }
@@ -67,10 +100,16 @@ const FunctionTestForm = (lpnValue)=>{
     }
     if(data.LPN === null){
         return<div>No data on LPN</div>
-    }
-
+    }   
     return(
-        <div>{console.log(functionTest)}Function Test Item</div>
+        <div>
+            Function Test Item
+            <div>
+                <Button onClick={unitPass}>   Pass   </Button>
+                <Button onClick={unitFail}>   Fail   </Button>
+            </div>
+            {submitButton?<a href="/functionTest"><Button onClick={submitFunctionTest}>Submit</Button></a>:<div/>}
+        </div>
     )
 }
 

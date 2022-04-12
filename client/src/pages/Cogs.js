@@ -9,7 +9,6 @@ let goodLpn=false;
 
 
 const Cogs = () => {
-    const { isLoggedIn, user } = useAuth();
     const [lpn, changeLpn] = useState({"lpn":""});
     
 
