@@ -38,7 +38,7 @@ const FunctionTest = ()=>{
                 <label>LPN:</label>
                 <input type="text" name="lpn" onChange={lpnChange}/>                
             </form>
-            {goodLpn?<FunctionTestForm value={lpn}/>:<div>Not good LPN</div>}
+            {goodLpn?<FunctionTestForm value={lpn}/>:<div></div>}
         </div>
     );
 }
