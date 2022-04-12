@@ -42,9 +42,23 @@ const FunctionTest = ()=>{
 
 const FunctionTestForm = (lpnValue)=>{
 
+    const {user} = useAuth();
+    console.log(user);
+
     const{data, loading, error} = useQuery(LPN,{variables:{lpn:lpnValue.value.lpn}})
 
-    
+    const [functionTest, updateFunctionTest] = useState(
+        {
+            "lpn": lpnValue.value.lpn,
+            "pass": false,
+            "test":{
+                "User": user._id,
+                "StartTime": new Date(),
+                "EndTime":null
+            }
+        }
+    )
+
     if(error){
         return(<div/>)
     }
@@ -54,8 +68,9 @@ const FunctionTestForm = (lpnValue)=>{
     if(data.LPN === null){
         return<div>No data on LPN</div>
     }
+
     return(
-        <div>Function Test Item</div>
+        <div>{console.log(functionTest)}Function Test Item</div>
     )
 }
 
