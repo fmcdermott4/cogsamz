@@ -5,15 +5,11 @@ const typeDefs = gql`
   scalar Date
 
   type Query {
-    "Find all AMM2 available"
-    AMM2: [AMM2]
-    "Find single LPN"
-    LPN(LPN:String):AMM2
-    "Find all bill code"
-    BillCodes: [COGS]
-    "Find single bill code"
+    AMM2: [AMM2]  
+    LPN(LPN:String):AMM2  
+    BillCodes: [COGS]  
     BillCode(BillCode:String): COGS
-    "Find the logged in user."
+    FunctionTests(subcategory:String, Pass:Boolean, minDate:Date, maxDate:Date, user:ID):[FunctionTest]
     me: User
     submittedLpn(LPN:String!):SubmittedLpn
     submittedLPNs(minDate:Date, maxDate:Date, subcategory:String): [SubmittedLpn]
@@ -49,14 +45,14 @@ const typeDefs = gql`
 
   type Cycle{
     _id:ID!
-    User:ID!
+    User:User!
     StartTime:Date!
     EndTime:Date!
   }
 
   type FunctionTest {
     _id: ID
-    LPN: ID    
+    LPN: AMM2
     Pass: Boolean
     Test: [Cycle]
   }

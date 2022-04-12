@@ -17,7 +17,10 @@ const resolvers = {
     }, 
     BillCode: async (parent, {BillCode})=>{
         return await COGS.findOne({BillCode:BillCode})
-    },    
+    },
+    FunctionTests: async (parent, args)=>{
+      return await FunctionTest.find({}).populate("LPN Test.User");
+    },   
     LPN: async (parent, {LPN}) =>{
         return await AMM2.findOne({LPN:LPN});
     },
