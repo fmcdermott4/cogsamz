@@ -29,11 +29,12 @@ export const LOGIN = gql`
 `;
 
 export const UPSERT_FUNCTION_TEST = gql`
-mutation upsertFunctionTest($lpn: ID, $pass: Boolean, $test: [CycleInput]) {
-  upsertFunctionTest(LPN: $lpn, Pass: $pass, Test: $test) {
-    _id
+  mutation UpsertFunctionTest($lpn: String!, $pass: Boolean, $test: CycleInput) {
+    upsertFunctionTest(LPN: $lpn, Pass: $pass, Test: $test) {
+      _id
+      LPN
+    }
   }
-}
 `;
 
 export const UPSERT_SUBMITTED_LPN = gql`

@@ -61,7 +61,7 @@ const resolvers = {
   Mutation: {
     upsertFunctionTest: async (parent, args)=>{      
       return await AMM2.findOne({LPN:args.LPN}, (err, data)=>{
-        FunctionTest.findOneAndUpdate({LPN:data._id},{LPN:data._id, Pass:args.Pass, $push:{Test:[args.Test[0]]}}, {new:true, upsert:true, setDefaultsOnInsert: true}, (err, data)=>{if(err){console.log(err)}})
+        FunctionTest.findOneAndUpdate({LPN:data._id},{LPN:data._id, Pass:args.Pass, $push:{Test:args.Test}}, {new:true, upsert:true, setDefaultsOnInsert: true}, (err, data)=>{if(err){console.log(err)}})
       })
     },
     upsertSubmittedLpn: async (parent,args)=>{
