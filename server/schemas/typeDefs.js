@@ -20,7 +20,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    upsertFunctionTest(LPN:String!, Pass:Boolean, Test:[CycleInput]):FunctionTest
+    upsertFunctionTest(LPN:String!, Pass:Boolean, Test:[CycleInput]):AMM2
     upsertSubmittedLpn(LPN:ID!, User:ID, FunctionTestChecked:Boolean, CleaningChecked:Boolean, ReboxChecked: Boolean, KittingChecked: Boolean, PartsChecked: Boolean, FunctionTest: String!, Cleaning: String!, Rebox: String!, Parts: String!, Kitting: String): SubmittedLpn
     createUser(email: String!, password: String!, username: String!): Auth
     login(email: String!, password: String!): Auth
