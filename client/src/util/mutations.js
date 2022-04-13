@@ -28,6 +28,15 @@ export const LOGIN = gql`
   }
 `;
 
+export const UPSERT_CLEANING = gql`
+  mutation UpsertCleaning($lpn: String!, $pass: Boolean, $cleaning: CycleInput) {
+    upsertCleaning(LPN: $lpn, Pass: $pass, Cleaning: $cleaning) {
+      _id
+      LPN
+    }
+  }
+`;
+
 export const UPSERT_FUNCTION_TEST = gql`
   mutation UpsertFunctionTest($lpn: String!, $pass: Boolean, $test: CycleInput) {
     upsertFunctionTest(LPN: $lpn, Pass: $pass, Test: $test) {

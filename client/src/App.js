@@ -12,6 +12,7 @@ import Cogs from "./pages/Cogs";
 import CogsAdmin from "./pages/CogsAdmin";
 import FunctionTest from "./pages/FunctionTest";
 import ServicesSelectedTable from "./pages/ServicesSelectedTable";
+import Cleaning from "./pages/Cleaning"
 
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/cogs">
               <Cogs />
+            </PrivateRoute>
+            <PrivateRoute path="/cleaning">
+              <Cleaning/>
             </PrivateRoute>
             <PrivateRoute path="/functiontest">
               <FunctionTest/>

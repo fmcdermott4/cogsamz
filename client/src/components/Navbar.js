@@ -1,6 +1,6 @@
 import { useAuth } from "../util/auth";
 import "./Navbar.css";
-import {Navbar, Container, Nav, Button} from "react-bootstrap";
+import {Navbar,NavDropdown,  Container, Nav, Button} from "react-bootstrap";
 
 export default function NavigationBar() {
   const { isLoggedIn, logout, user } = useAuth();
@@ -14,12 +14,17 @@ export default function NavigationBar() {
         {/* {console.log(user)} */}
       {isLoggedIn ? (
         <Nav>
-          <Nav.Link href="/cogs">
-           Cogs Tool
-          </Nav.Link>
-          <Nav.Link href="/functionTest">
-            Function Test
-          </Nav.Link>
+          <NavDropdown title="Sevices">            
+            <NavDropdown.Item href="/cogs">
+            Cogs Tool
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/functionTest">
+              Function Test
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/cleaning">
+              Cleaning
+            </NavDropdown.Item>
+          </NavDropdown>
           {user.access==="admin" ? <Nav.Link href="/servicesselected">
             Service Table
           </Nav.Link>:<div/>}

@@ -16,6 +16,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    upsertCleaning(LPN:String!, Pass:Boolean, Cleaning:CycleInput):AMM2
     upsertFunctionTest(LPN:String!, Pass:Boolean, Test:CycleInput):AMM2
     upsertSubmittedLpn(LPN:ID!, User:ID, FunctionTestChecked:Boolean, CleaningChecked:Boolean, ReboxChecked: Boolean, KittingChecked: Boolean, PartsChecked: Boolean, FunctionTest: String!, Cleaning: String!, Rebox: String!, Parts: String!, Kitting: String): SubmittedLpn
     createUser(email: String!, password: String!, username: String!): Auth
@@ -34,6 +35,13 @@ const typeDefs = gql`
     Price: String
     DateCreated: Date
     Active: Boolean
+  }
+
+  type Cleaning {
+    _id: ID
+    LPN: AMM2
+    Pass: Boolean
+    Cleaning: [Cycle]
   }
 
   input CycleInput{

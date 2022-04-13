@@ -2,7 +2,7 @@ const {
   AuthenticationError,
   UserInputError,
 } = require("apollo-server-express");
-const { AMM2, COGS, FunctionTest, SubmittedLpn, User } = require("../models");
+const { AMM2, Cleaning, COGS, FunctionTest, SubmittedLpn, User } = require("../models");
 const { signToken } = require("../util/auth");
 const { dateScalar } = require("./customScalars");
 
@@ -19,7 +19,7 @@ const resolvers = {
         return await COGS.findOne({BillCode:BillCode})
     },
     FunctionTests: async (parent, args)=>{
-      return await FunctionTest.find({}).populate("LPN Test.User");
+      return await FunctionTest.find({}).populate({path:"LPN Test.User"});
     },   
     LPN: async (parent, {LPN}) =>{
         return await AMM2.findOne({LPN:LPN});
@@ -62,6 +62,11 @@ const resolvers = {
     }
   },
   Mutation: {
+    upsertCleaning: async (parent, args)=>{      
+      return await AMM2.findOne({LPN:args.LPN}, (err, data)=>{
+        Cleaning.findOneAndUpdate({LPN:data._id},{LPN:data._id, Pass:args.Pass, $push:{Cleaning:args.Test}}, {new:true, upsert:true, setDefaultsOnInsert: true}, (err, data)=>{if(err){console.log(err)}})
+      })
+    },
     upsertFunctionTest: async (parent, args)=>{      
       return await AMM2.findOne({LPN:args.LPN}, (err, data)=>{
         FunctionTest.findOneAndUpdate({LPN:data._id},{LPN:data._id, Pass:args.Pass, $push:{Test:args.Test}}, {new:true, upsert:true, setDefaultsOnInsert: true}, (err, data)=>{if(err){console.log(err)}})
