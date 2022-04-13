@@ -136,6 +136,7 @@ const ServicesCheckboxes = (lpnData) =>{
     let cogsPassFail = cogsCost <= budget;
     return(
         <div>
+            <p>Please select <em><b>all services</b></em> required for this item</p>
             <hr/>
             <form>
                 <input type="checkbox" checked disabled/><label>Function test</label>

@@ -49,7 +49,7 @@ function App() {
             <PrivateRoute path="/cogsadmin">
               <CogsAdmin />
             </PrivateRoute>
-            <PrivateRoute path="/servicesselected">
+            <PrivateRoute path="/cogsassessed">
               <ServicesSelectedTable/>
             </PrivateRoute>
           </Switch>

@@ -16,8 +16,14 @@ export default function NavigationBar() {
         <Nav>
           <NavDropdown title="Sevices">            
             <NavDropdown.Item href="/cogs">
-            Cogs Tool
+              Cogs Check
             </NavDropdown.Item>
+            {
+              user.access === "admin"?
+                <NavDropdown.Item href="/cogsadmin">
+                  Cogs Admin
+                </NavDropdown.Item>:<div/>
+            }
             <NavDropdown.Item href="/functionTest">
               Function Test
             </NavDropdown.Item>
@@ -25,9 +31,15 @@ export default function NavigationBar() {
               Cleaning
             </NavDropdown.Item>
           </NavDropdown>
-          {user.access==="admin" ? <Nav.Link href="/servicesselected">
-            Service Table
-          </Nav.Link>:<div/>}
+          {user.access==="admin" ?
+            <NavDropdown title="Tables">
+              <NavDropdown.Item href="/cogsassessed">
+                COGS Assessed
+              </NavDropdown.Item>
+            </NavDropdown>
+            :
+            <div/>
+            }
           <Nav.Link href="/user">
             User
           </Nav.Link>
