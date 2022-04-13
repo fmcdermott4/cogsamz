@@ -8,45 +8,48 @@ export default function NavigationBar() {
 
   return (
 
-    <Navbar bg="primary" variant="dark">
+    <Navbar bg="primary" variant="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/">COGS</Navbar.Brand>
         {/* {console.log(user)} */}
       {isLoggedIn ? (
-        <Nav>
-          <NavDropdown title="Sevices">            
-            <NavDropdown.Item href="/cogs">
-              Cogs Check
-            </NavDropdown.Item>
-            {
-              user.access === "admin"?
-                <NavDropdown.Item href="/cogsadmin">
-                  Cogs Admin
-                </NavDropdown.Item>:<div/>
-            }
-            <NavDropdown.Item href="/functionTest">
-              Function Test
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/cleaning">
-              Cleaning
-            </NavDropdown.Item>
-          </NavDropdown>
-          {user.access==="admin" ?
-            <NavDropdown title="Tables">
-              <NavDropdown.Item href="/cogsassessed">
-                COGS Assessed
+        <div>
+          <Nav>
+            <NavDropdown title="Sevices">            
+              <NavDropdown.Item href="/cogs">
+                Cogs Check
+              </NavDropdown.Item>
+              {
+                user.access === "admin"?
+                  <NavDropdown.Item href="/cogsadmin">
+                    Cogs Admin
+                  </NavDropdown.Item>:<div/>
+              }
+              <NavDropdown.Item href="/functionTest">
+                Function Test
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/cleaning">
+                Cleaning
               </NavDropdown.Item>
             </NavDropdown>
-            :
-            <div/>
-            }
-          <Nav.Link href="/user">
-            User
-          </Nav.Link>
-          <Button variant="warning" onClick={logout}>
-            Logout
-          </Button>
-        </Nav>
+            {user.access==="admin" ?
+              <NavDropdown title="Tables">
+                <NavDropdown.Item href="/cogsassessed">
+                  COGS Assessed
+                </NavDropdown.Item>
+              </NavDropdown>
+              :
+              <div/>
+              }
+          
+            <Nav.Link href="/user">
+              User
+            </Nav.Link>
+            <Button variant="warning" onClick={logout}>
+              Logout
+            </Button>
+          </Nav>
+        </div>
       ) : (
         <Nav>
           <Nav.Link href="/login" className="navbar-link">
