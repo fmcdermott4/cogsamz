@@ -47,9 +47,9 @@ export const UPSERT_FUNCTION_TEST = gql`
 `;
 
 export const UPSERT_SUBMITTED_LPN = gql`
-  mutation upsertSubmittedLpn($lpn: ID!, $user:ID, $functionTest: String!, $cleaning: String!, $rebox: String!, $parts: String!, $functionTestChecked: Boolean, $cleaningChecked: Boolean, $reboxChecked: Boolean, $kittingChecked: Boolean, $partsChecked: Boolean, $kitting: String) {
-    upsertSubmittedLpn(LPN: $lpn, User:$user, FunctionTest: $functionTest, Cleaning: $cleaning, Rebox: $rebox, Parts: $parts, FunctionTestChecked: $functionTestChecked, CleaningChecked: $cleaningChecked, ReboxChecked: $reboxChecked, KittingChecked: $kittingChecked, PartsChecked: $partsChecked, Kitting: $kitting) {
-      _id
-    }
+  mutation upsertSubmittedLpn($lpn: ID!, $user: ID!, $functionTestChecked: Boolean!, $cleaningChecked: Boolean!, $reboxChecked: Boolean!, $kittingChecked: Boolean!, $partsChecked: Boolean!, $softwareReloadChecked: Boolean!, $functionTest: String!, $cleaning: String!, $rebox: String!, $parts: String!, $softwareReload: String!) {
+  upsertSubmittedLpn(LPN: $lpn, User: $user, FunctionTestChecked: $functionTestChecked, CleaningChecked: $cleaningChecked, ReboxChecked: $reboxChecked, KittingChecked: $kittingChecked, PartsChecked: $partsChecked, SoftwareReloadChecked: $softwareReloadChecked, FunctionTest: $functionTest, Cleaning: $cleaning, Rebox: $rebox, Parts: $parts, SoftwareReload: $softwareReload) {
+    _id
   }
+}
 `;

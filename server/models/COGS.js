@@ -28,6 +28,10 @@ const cogsSchema = new Schema({
     Parts:{
         type: String,
         trim: true
+    },
+    SoftwareReload: {
+        type: String,
+        trim:true
     }
 });
 

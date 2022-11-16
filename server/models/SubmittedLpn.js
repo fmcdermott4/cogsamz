@@ -35,6 +35,10 @@ const submittedLpnSchema = new Schema({
         type: Boolean,
         default: false
     },
+    SoftwareReloadChecked: {
+        type: Boolean,
+        default: false
+    },
     FunctionTest:{
         type: String,
         required: true,
@@ -59,6 +63,11 @@ const submittedLpnSchema = new Schema({
         type: String,
         trim: true,
         default: "2"
+    },
+    SoftwareReload: {
+        type: String,
+        trim: true,
+        required:true
     }
 });
 

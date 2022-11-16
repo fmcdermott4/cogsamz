@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useAuth } from "../util/auth";
 import {useQuery, useMutation} from '@apollo/client';
 import {LPN, BILL_CODE} from '../util/queries';
@@ -77,7 +77,8 @@ const ServicesCheckboxes = (lpnData) =>{
         "cleaning" : false,
         "rebox": false,
         "manual": false,
-        "parts": false
+        "parts": false,
+        "softwareReload":false
     })
 
     const billCode = lpnData.data.LPN.Subcategory.substring(0,5).trim();    
@@ -105,9 +106,10 @@ const ServicesCheckboxes = (lpnData) =>{
     const cleaningCost = parseInt(data.BillCode.Cleaning);
     const reboxCost = parseInt(data.BillCode.Rebox);
     const partsCost = parseInt(data.BillCode.Parts);
+    const softwareReloadCost = parseInt(data.BillCode.SoftwareReload);
     const manualCost = 2;
 
-    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual+partsCost*passFail.parts;
+    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual+partsCost*passFail.parts+softwareReloadCost*passFail.softwareReload;
     
     const handleCheck = (e)=>{
         const checkBox = e.target.name;
@@ -116,22 +118,30 @@ const ServicesCheckboxes = (lpnData) =>{
             ...passFail,
             [checkBox] : value
         });
+        updateSubmittedLpn({
+            variables: {
+                "lpn": lpnData.data.LPN._id,
+                "user": user._id,
+                "functionTestChecked": passFail.functionTest,
+                "cleaningChecked": passFail.cleaning,
+                "reboxChecked": passFail.rebox,
+                "kittingChecked": passFail.manual,
+                "partsChecked": passFail.parts,
+                "softwareReloadChecked": passFail.softwareReload,
+                "functionTest": data.BillCode.FunctionTest,
+                "rebox": data.BillCode.Rebox,
+                "cleaning": data.BillCode.Cleaning,
+                "parts": data.BillCode.Parts,
+                "softwareReload": data.BillCode.SoftwareReload,
+
+            }
+        })
+
         
     }
     // console.log(lpnData.data.LPN._id);
-    updateSubmittedLpn({variables:{
-        "lpn": lpnData.data.LPN._id,
-        "user": user._id,
-        "functionTestChecked": passFail.functionTest,
-        "cleaningChecked": passFail.cleaning,
-        "reboxChecked": passFail.rebox,
-        "kittingChecked": passFail.manual,
-        "partsChecked": passFail.parts,
-        "functionTest": data.BillCode.FunctionTest,
-        "rebox": data.BillCode.Rebox,
-        "cleaning": data.BillCode.Cleaning,
-        "parts": data.BillCode.Parts
-}});
+    
+    
 
     let cogsPassFail = cogsCost <= budget;
     return(
@@ -152,7 +162,10 @@ const ServicesCheckboxes = (lpnData) =>{
                 <br/>
 
                 <input type="checkbox" name="parts" onChange={handleCheck}/><label>Parts?</label>
-                <br/>
+                <br />
+
+                <input type="checkbox" name="softwareReload" onChange={handleCheck} /><label>Software Reload?</label>
+                <br />
             </form>
             <hr/>
             {cogsPassFail?<h3>Pass</h3>:<h3>Fail</h3>}

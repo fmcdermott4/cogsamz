@@ -73,7 +73,8 @@ const resolvers = {
       })
     },
     upsertSubmittedLpn: async (parent,args)=>{
-      const {LPN} = await args;
+        const { LPN } = await args;
+        console.log(args);
       const updatedLpn =  await SubmittedLpn.findOneAndUpdate({LPN:LPN}, {...args}, {new:true, upsert:true, setDefaultsOnInsert: true});            
       updatedLpn.SubmittedDate = Date.now();
       await updatedLpn.save();

@@ -30,6 +30,7 @@ export const BILL_CODE = gql`
       Cleaning
       Rebox
       Parts
+      SoftwareReload
     }
   }
 `;
