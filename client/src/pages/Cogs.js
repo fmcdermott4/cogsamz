@@ -73,12 +73,12 @@ const ServicesCheckboxes = (lpnData) =>{
     const budget = parseInt(lpnData.data.LPN.Price) * budgetPercent;
     
     const [passFail, changePassFail] = useState({
-        "functionTest": true,
-        "cleaning" : false,
-        "rebox": false,
-        "manual": false,
-        "parts": false,
-        "softwareReload":false
+        "functionTestChecked": true,
+        "cleaningChecked" : false,
+        "reboxChecked": false,
+        "kittingChecked": false,
+        "partsChecked": false,
+        "softwareReloadChecked":false
     })
 
     const billCode = lpnData.data.LPN.Subcategory.substring(0,5).trim();    
@@ -88,6 +88,11 @@ const ServicesCheckboxes = (lpnData) =>{
     })
 
     const [updateSubmittedLpn] = useMutation(UPSERT_SUBMITTED_LPN);
+
+    useEffect(() => {
+       
+
+    })
 
     if(error){
         return<div/>
@@ -109,7 +114,7 @@ const ServicesCheckboxes = (lpnData) =>{
     const softwareReloadCost = parseInt(data.BillCode.SoftwareReload);
     const manualCost = 2;
 
-    let cogsCost = functionTestCost*passFail.functionTest+cleaningCost*passFail.cleaning+reboxCost*passFail.rebox+manualCost*passFail.manual+partsCost*passFail.parts+softwareReloadCost*passFail.softwareReload;
+    let cogsCost = functionTestCost*passFail.functionTestChecked+cleaningCost*passFail.cleaningChecked+reboxCost*passFail.reboxChecked+manualCost*passFail.kittingChecked+partsCost*passFail.partsChecked+softwareReloadCost*passFail.softwareReloadChecked;
     
     const handleCheck = (e)=>{
         const checkBox = e.target.name;
@@ -120,27 +125,21 @@ const ServicesCheckboxes = (lpnData) =>{
         });
         updateSubmittedLpn({
             variables: {
+                ...passFail,
+                [checkBox]: value,
                 "lpn": lpnData.data.LPN._id,
                 "user": user._id,
-                "functionTestChecked": passFail.functionTest,
-                "cleaningChecked": passFail.cleaning,
-                "reboxChecked": passFail.rebox,
-                "kittingChecked": passFail.manual,
-                "partsChecked": passFail.parts,
-                "softwareReloadChecked": passFail.softwareReload,
                 "functionTest": data.BillCode.FunctionTest,
                 "rebox": data.BillCode.Rebox,
                 "cleaning": data.BillCode.Cleaning,
                 "parts": data.BillCode.Parts,
-                "softwareReload": data.BillCode.SoftwareReload,
-
+                "softwareReload": data.BillCode.SoftwareReload
             }
-        })
-
+        });  
+        console.log(passFail)
         
     }
     // console.log(lpnData.data.LPN._id);
-    
     
 
     let cogsPassFail = cogsCost <= budget;
@@ -152,19 +151,19 @@ const ServicesCheckboxes = (lpnData) =>{
                 <input type="checkbox" checked disabled/><label>Function test</label>
                 <br/>
                 
-                <input type="checkbox" name="cleaning" onChange={handleCheck}/><label>Cleaning</label>
+                <input type="checkbox" name="cleaningChecked" onChange={handleCheck}/><label>Cleaning</label>
                 <br/>
                 
-                <input type="checkbox" name="rebox" onChange={handleCheck}/><label>Rebox?</label>
+                <input type="checkbox" name="reboxChecked" onChange={handleCheck}/><label>Rebox?</label>
                 <br/>
                 
-                <input type="checkbox" name="manual" onChange={handleCheck}/><label>Manual?</label>
+                <input type="checkbox" name="kittingChecked" onChange={handleCheck}/><label>Manual?</label>
                 <br/>
 
-                <input type="checkbox" name="parts" onChange={handleCheck}/><label>Parts?</label>
+                <input type="checkbox" name="partsChecked" onChange={handleCheck}/><label>Parts?</label>
                 <br />
 
-                <input type="checkbox" name="softwareReload" onChange={handleCheck} /><label>Software Reload?</label>
+                <input type="checkbox" name="softwareReloadChecked" onChange={handleCheck}/><label>Software Reload?</label>
                 <br />
             </form>
             <hr/>
