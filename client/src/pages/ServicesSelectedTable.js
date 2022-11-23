@@ -64,11 +64,13 @@ const LpnRow = (lpn, index)=>{
             <td>{lpn.ReboxChecked===true?<div>Yes</div>:<div>No</div>}</td>
             <td>{lpn.KittingChecked===true?<div>Yes</div>:<div>No</div>}</td>
             <td>{lpn.PartsChecked===true?<div>Yes</div>:<div>No</div>}</td>
+            <td>{lpn.SoftwareReloadChecked===true?<div>Yes</div>:<div>No</div>}</td>
             <td>${lpn.FunctionTest}</td>
             <td>${lpn.Cleaning}</td>
             <td>${lpn.Rebox}</td>
             <td>${lpn.Kitting}</td>
             <td>${lpn.Parts}</td>
+            <td>${lpn.SoftwareReload}</td>
             <td>{lpn.User.username}</td>
         </tr>
     )
@@ -79,13 +81,14 @@ const LpnRow = (lpn, index)=>{
 
 const SelectedTable = (submittedLpnParameters)=>{
 
-    // console.log(submittedLpnParameters);
+    //console.log(submittedLpnParameters.submittedLpnParameters);
     const {data, loading, error} = useQuery(SUBMITTED_LPNS,{variables:{...submittedLpnParameters.submittedLpnParameters}});
 // 
     if(loading){
         return<div>Loading...</div>
     }
     if(error){
+        console.log(error)
         return<div>Query error.</div>
     }
     
@@ -109,11 +112,13 @@ const SelectedTable = (submittedLpnParameters)=>{
         {label:"Rebox", key:"ReboxChecked"},
         {label:"Manual", key:"KittingChecked"},
         {label:"Parts", key:"PartsChecked"},
+        {label:"SoftwareReload",key:"SoftwareReloadChecked"},
         {label:"FunctionTestCost", key:"FunctionTest"},
         {label:"CleaningCost", key:"Cleaning"},
         {label:"ReboxCost", key:"Rebox"},
         {label:"ManualCost", key:"Kitting"},
         {label:"PartsCost", key:"Parts"},
+        {label:"SoftwarReloadCose",key:"SoftwareReload"},
         {label:"User", key:"User.username"}
     ];
 
@@ -150,17 +155,19 @@ const SelectedTable = (submittedLpnParameters)=>{
                 <th>Rebox</th>
                 <th>Manual</th>
                 <th>Parts</th>
+                <th>SoftwareReload</th>
                 <th>Function Test Cost</th>
                 <th>Cleaning Cost</th>
                 <th>Rebox Cost</th>
                 <th>Manual Cost</th>
                 <th>Parts Cost</th>
+                <th>Software Reload Cost</th>
                 <th>User</th>
             </tr>
         </thead>;
 
     return(
-        <div>
+        <div>{console.log(lpn)}
             <Container md="auto">
             <Header/>
             <CSVLink {...csvReport}>Export to CSV</CSVLink>

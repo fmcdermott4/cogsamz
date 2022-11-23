@@ -38,26 +38,27 @@ export const BILL_CODE = gql`
 export const SUBMITTED_LPNS = gql`
 query SubmittedLPNs($minDate: Date, $maxDate: Date, $subcategory: String) {
   submittedLPNs(minDate: $minDate, maxDate: $maxDate, subcategory: $subcategory) {
-    _id
-    SubmittedDate
-    FunctionTestChecked
-    CleaningChecked
-    ReboxChecked
-    KittingChecked
-    PartsChecked
-    FunctionTest
     Cleaning
-    Rebox
-    Parts
+    CleaningChecked
+    FunctionTest
+    FunctionTestChecked
     Kitting
+    KittingChecked
     LPN {
       _id
       LPN
       Subcategory
-      Price
+      Price 
       DateCreated
       Active
     }
+    Parts
+    PartsChecked
+    Rebox
+    ReboxChecked
+    SoftwareReload
+    SoftwareReloadChecked
+    SubmittedDate
     User {
       _id
       username
@@ -65,6 +66,7 @@ query SubmittedLPNs($minDate: Date, $maxDate: Date, $subcategory: String) {
       lastLogin
       access
     }
+    _id
   }
 }
 `;

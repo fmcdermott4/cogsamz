@@ -15,7 +15,7 @@ export default function NavigationBar() {
       {isLoggedIn ? (
         <div>
           <Nav>
-            <NavDropdown title="Sevices">            
+            <NavDropdown title="Services">            
               <NavDropdown.Item href="/cogs">
                 Cogs Check
               </NavDropdown.Item>

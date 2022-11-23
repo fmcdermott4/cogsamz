@@ -1,10 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\client",
     "\\client\\src",
+    "\\client\\src\\pages",
+    "\\client\\src\\util",
     "\\server",
+    "\\server\\config",
+    "\\server\\models",
+    "\\server\\schemas",
     "\\server\\seeders"
   ],
-  "SelectedNode": "\\server\\seeders\\amm2.json",
+  "SelectedNode": "\\client\\src\\util\\queries.js",
   "PreviewInSolutionExplorer": false
 }
